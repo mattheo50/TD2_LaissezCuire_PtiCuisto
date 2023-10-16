@@ -1,0 +1,66 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-size: 2em;
+    font-family: "Pacifico", cursive;
+}
+
+nav {
+    background-color: #7890cd;
+    height: 100px;
+    max-height: 10vh;
+    display: flex;
+    flex-direction: row;
+}
+
+#logo {
+    height: 90%;
+    margin: min(5px, 0.5vh);
+}
+
+#headerLinks {
+    display: flex;
+    justify-content: end;
+    height: 100%;
+    width: 100%;
+}
+
+#headerLinks a {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding: 0 20px;
+    font-size: min(1em, 5vh);
+}
+
+#filtres {
+    width: 230px;
+    max-width: 20vw;
+}
+
+#filtres a {
+    padding: 0;
+}
+
+#filtresMenu {
+    width: 230px;
+    max-width: 20vw;
+    display: none;
+    position: absolute;
+    background-color: #7890cd;
+}
+
+#filtres:hover  #filtresMenu {
+    display: block;
+}
+
+hr {
+    color: white;
+    margin: 5px;
+}

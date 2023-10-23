@@ -16,9 +16,9 @@ if (
             session_start();
         }
         if ($pseudo == 'admin') {
-            $_SESSION['userType'] = 1;
-        } else {
             $_SESSION['userType'] = 0;
+        } else {
+            $_SESSION['userType'] = 1;
         }
     }
     else {

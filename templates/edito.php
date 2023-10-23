@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
     </head>
     <body>
-        <header>
-            <?php
-                include("./navbar.php");
-            ?>
-        </header>
+        <?php
+            include("./navbar.php");
+        ?>
 
         <main>
-            <section id="bigDiv">
-                Des Trucs
+            <section id="imageHeader">
+                <img src="https://brandsitesplatform-res.cloudinary.com/image/fetch/w_1540,c_scale,q_auto:eco,f_auto,fl_lossy,dpr_1.0,e_sharpen:85/https://assets.brandplatform.generalmills.com%2F-%2Fmedia%2Fproject%2Fgmi%2Foldelpaso%2Foldelpaso-fr%2Foepp%2Fnri%2Frub-cycle%2Fpoulet-roti-facon-fajita-hero.png%3Fw%3D480%26rev%3D6b4feaec3e3b47f38a9094d32cb52c1d%201540w">
             </section>
 
             <section id="alignSect">
@@ -56,10 +54,8 @@
                 </section>
             </section>
         </main>
-        <footer>
-            <div id="socialLinks">
-                
-            </div>
-        </footer>
+        <?php
+            include("./footer.php");
+        ?>
     </body>
 </html>

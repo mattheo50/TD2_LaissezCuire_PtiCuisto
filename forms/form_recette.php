@@ -15,68 +15,47 @@
         <input name="contenu" type="text" placeholder="recette"></input><br>
         <label>Saisissez un court résumé de la recette: </label>
         <input name="resume" type="text" placeholder="résumé"></input><br>
-        <label>Séléctionnez les ingrédients de la recette: </label>
-
-        <?php 
-
-try
-{
-    $bdd = new PDO('mysql:host=mysql.info.unicaen.fr;dbname=22013679_1;charset=utf8', '22013679', 'goh8sheeRaemohxa');
-}
-
-catch(Exception $e)
-{
-        die('Erreur : '.$e->getMessage());
-}
-
-// Récupérez la valeur de la requête de l'utilisateur
-$query = "Pâ";
-
-// Recherchez des correspondances dans la base de données
-$stmt = $pdo->prepare("SELECT TITRE FROM RECETTE WHERE TITRE LIKE :query");
-$stmt->execute(['query' => '%' . $query . '%']);
-$matches = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Renvoyez les titres des recettes correspondantes sous forme de JSON
-echo json_encode($matches);
-?>
-
-
-        <input type="text" id="autocomplete-input" placeholder="Recherche de recettes">
-<div id="autocomplete-results"></div>
+        
+        <form>
+        <label for="Séléctionnez les ingrédients de la recette:">Séléctionnez les ingrédients de la recette: </label>
+        <input type="text" id="ingredient" name="ingredient">
+        </form>
+        <div id="ingredientList"></div>
 
 <script>
-    const input = document.getElementById("autocomplete-input");
-    const resultsContainer = document.getElementById("autocomplete-results");
 
-    // Définissez une fonction pour effectuer la recherche et mettre à jour les résultats
-    function updateResults() {
-        const inputValue = input.value.trim();
+// JavaScript pour la gestion de l'autocomplétion
+document.addEventListener("DOMContentLoaded", function() {
+    const ingredientInput = document.getElementById("ingredient");
+    const ingredientList = document.getElementById("ingredientList");
 
-        // Assurez-vous que la saisie n'est pas vide
-        if (inputValue !== "") {
-            // Effectuez une requête AJAX pour obtenir les résultats depuis le serveur PHP
-            fetch("./autocomplete.php?query=" + inputValue)
+    ingredientInput.addEventListener("input", function() {
+        const term = ingredientInput.value;
+
+        if (term.length >= 2) {
+            fetch(`autocomplete.php?term=${term}`)
                 .then(response => response.json())
                 .then(data => {
-                    resultsContainer.innerHTML = "";
-                    data.forEach(result => {
-                        resultsContainer.innerHTML += `<div>${result.title}</div>`;
+                    ingredientList.innerHTML = "";
+
+                    data.forEach(ingredient => {
+                        const suggestion = document.createElement("div");
+                        suggestion.textContent = ingredient;
+                        ingredientList.appendChild(suggestion);
+
+                        suggestion.addEventListener("click", function() {
+                            ingredientInput.value = ingredient;
+                            ingredientList.innerHTML = "";
+                        });
                     });
-                })
-                .catch(error => {
-                    console.error("Erreur de requête AJAX : " + error);
                 });
         } else {
-            // Si la saisie est vide, effacez les résultats
-            resultsContainer.innerHTML = "";
+            ingredientList.innerHTML = "";
         }
-    }
+    });
+});
 
-    // Ajoutez un gestionnaire d'événement "input" pour déclencher la recherche à chaque saisie
-    input.addEventListener("input", updateResults);
 </script>
-
        
 
         <label>Saisissez un lien d'image: </label>

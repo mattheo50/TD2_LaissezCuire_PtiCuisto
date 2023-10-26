@@ -16,46 +16,48 @@
         <label>Saisissez un court résumé de la recette: </label>
         <input name="resume" type="text" placeholder="résumé"></input><br>
         
-        <form>
+        <form action="autocomplete.php" method="post">
         <label for="Séléctionnez les ingrédients de la recette:">Séléctionnez les ingrédients de la recette: </label>
-        <input type="text" id="ingredient" name="ingredient">
-        </form>
-        <div id="ingredientList"></div>
+        <input type="search" id="ingredient" name="ingredient" list="Listingredient" autocomplete="off">
+        <button id="ajout_ing_bouton" type="button" >+</button>
+        <datalist id="Listingredient"></datalist>
+        <p id="ListeIngredientAjoute">Ingredients : </p>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let recherche;
+        $(document).ready(function() {
+            $("#ingredient").on("input", function() {
+                recherche = document.getElementById("ingredient").value;
+                var query = $(this).val();
 
-<script>
-
-// JavaScript pour la gestion de l'autocomplétion
-document.addEventListener("DOMContentLoaded", function() {
-    const ingredientInput = document.getElementById("ingredient");
-    const ingredientList = document.getElementById("ingredientList");
-
-    ingredientInput.addEventListener("input", function() {
-        const term = ingredientInput.value;
-
-        if (term.length >= 2) {
-            fetch(`autocomplete.php?term=${term}`)
-                .then(response => response.json())
-                .then(data => {
-                    ingredientList.innerHTML = "";
-
-                    data.forEach(ingredient => {
-                        const suggestion = document.createElement("div");
-                        suggestion.textContent = ingredient;
-                        ingredientList.appendChild(suggestion);
-
-                        suggestion.addEventListener("click", function() {
-                            ingredientInput.value = ingredient;
-                            ingredientList.innerHTML = "";
-                        });
+                if (query !== "") {
+                    $.ajax({
+                        url: "autocomplete.php",
+                        method: "POST",
+                        data: { query: query },
+                        success: function(data) {
+                            var datalist = $("#Listingredient");
+                            datalist.empty();
+                            datalist.html(data);
+                        }
                     });
-                });
-        } else {
-            ingredientList.innerHTML = "";
-        }
-    });
-});
-
-</script>
+                }
+            });
+        });
+        console.log(recherche);
+        
+        const ajoutIngredient = document.getElementById("ajout_ing_bouton");
+        let premierIngredient = true;
+        ajoutIngredient.addEventListener("click",(event)=>{
+            if(premierIngredient == true){
+                document.getElementById("ListeIngredientAjoute").innerHTML += (recherche);
+                premierIngredient = false;
+            }else{
+                document.getElementById("ListeIngredientAjoute").innerHTML += (", "+recherche);
+            }
+        });
+    </script>
        
 
         <label>Saisissez un lien d'image: </label>

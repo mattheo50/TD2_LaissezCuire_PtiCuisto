@@ -2,22 +2,20 @@
 // Inclure votre fichier de configuration de base de données ici
 include "config.php";
 
-// Vérifier si un terme de recherche est présent dans la requête
-if (isset($_GET['term'])) {
-    $term = $_GET['term'];
-    
-    // Requête SQL pour récupérer les ingrédients correspondant au terme de recherche
-    $sql = "SELECT INTITULE_ING FROM INGREDIENT WHERE INTITULE_ING LIKE :term";
-    $stmt = $bdd->prepare($sql);
-    $stmt->execute(['term' => '%' . $term . '%']);
+// Récupération de la requête de recherche depuis le champ de recherche
+$query = $_POST["query"];
 
-    // Créer un tableau des résultats
-    $results = array();
-    while ($row = $stmt->fetch()) {
-        $results[] = $row['INTITULE_ING'];
+// Requête SQL pour récupérer les suggestions
+$sql = "SELECT INTITULE_ING FROM INGREDIENT WHERE INTITULE_ING LIKE :query";
+$stmt = $bdd->prepare($sql);
+$stmt->bindValue(":query", "%$query%");
+$stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Affichage des suggestions sous forme d'options pour la liste de données
+if ($results) {
+    foreach ($results as $row) {
+        echo '<option value="' . $row["INTITULE_ING"] . '">';
     }
-
-    // Renvoyer les résultats au format JSON
-    echo json_encode($results);
 }
 ?>

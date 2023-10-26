@@ -7,14 +7,11 @@ if (
     isset($_POST['pseudo']) && isset($_POST['motDePasse']) && !empty($_POST['pseudo'])
     && !empty($_POST['motDePasse'])
 ) {
-    require('connexion.php');
+    require_once('connexion.php');
+    require_once('modelConnexion.php');
     $pseudo = $_POST['pseudo'];
     $motDePasse = $_POST['motDePasse'];
-    $sql = "select count(*) as nb from UTILISATEUR where (pseudo = '" . $pseudo . "' and mot_de_passe = '" . $motDePasse . "')
-        or (adresse_mail = '" . $pseudo . "' and mot_de_passe = '" . $motDePasse . "')";
-    $reponse = $bdd-> query($sql);
-    $donnees = $reponse->fetch();
-    $nb = $donnees['nb'];
+    $nb = existUtil($pseudo, $motDePasse);
     if ($nb == 1) {
         if ($pseudo == 'admin') {
             $_SESSION['userType'] = 0;

@@ -11,13 +11,13 @@
     <body>
         <header>
             <nav>
-                <img id="logo" src="/images/Logo.png" alt="Logo PtiCuistot">
+                <img id="logo" src="../images/Logo.png" alt="Logo PtiCuistot">
 
                 <div id="headerLinks">
-                    <a href="/templates/accueil.php">Accueil</a>
-                    <a href="/templates/accueil.php">Nos recettes</a>
+                    <a href="../templates/accueil.php">Accueil</a>
+                    <a href="../templates/accueil.php">Nos recettes</a>
                     <div id="filtres">
-                        <a id="filtres" href="/templates/accueil.php">Filtres</a>
+                        <a id="filtres" href="../templates/accueil.php">Filtres</a>
                         <div id="filtresMenu">
                             <a>Catégories</a>
                             <hr>
@@ -26,7 +26,7 @@
                             <a>Ingrédients</a>
                         </div>
                     </div>
-                    <a href="/templates/accueil.php">Connexion</a>
+                    <a href="../templates/accueil.php">Connexion</a>
                 </div>
             </nav>
         </header>

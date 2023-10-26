@@ -20,19 +20,19 @@
                     <h2>Les dernières recettes</h2>
                     <div id="lastRecipes">
                         <div class="lastRecipe">
-                            <img src="/images/Pticuisto.png" alt="Petit Cuistot">
+                            <img src="../images/Pticuisto.png" alt="Petit Cuistot">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing
                                elit. Duis sodales commodo sapien, eget egestas diam
                                vulputate sit amet.</p>
                         </div>
                         <div class="lastRecipe">
-                            <img src="/images/Pticuisto.png" alt="Petit Cuistot">
+                            <img src="../images/Pticuisto.png" alt="Petit Cuistot">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing
                                elit. Duis sodales commodo sapien, eget egestas diam
                                vulputate sit amet.</p>
                         </div>
                         <div class="lastRecipe">
-                            <img src="/images/Pticuisto.png" alt="Petit Cuistot">
+                            <img src="../images/Pticuisto.png" alt="Petit Cuistot">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing
                                elit. Duis sodales commodo sapien, eget egestas diam
                                vulputate sit amet.</p>
@@ -41,7 +41,7 @@
                 </section>
 
                 <section id="edito">
-                    <img id="imgCuistot" src="/images/Pticuisto.png" alt="Petit Cuistot">
+                    <img id="imgCuistot" src="../images/Pticuisto.png" alt="Petit Cuistot">
                     <h2>Edito</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing
                        elit. Duis sodales commodo sapien, eget egestas diam

@@ -1,28 +1,38 @@
-<?php include_once("../templates/navbar.php")?>
+<?php include_once("../templates/navbar.php");
+      include_once("config.php");?>
 <?php
-echo ("<pre>");
-echo(print_r($_POST));
-echo ("</pre>");
 
 $categorie = strip_tags($_POST["categorie"]);
-echo (print("$categorie"));
+
+$tags = strip_tags($_POST["tags"]);
+
 $titre = strip_tags($_POST["titre"]);
-echo (print("$titre"));
+
 $contenu = strip_tags($_POST["contenu"]);
-echo (print("$contenu"));
+
 $resume = strip_tags($_POST["resume"]);
-echo (print("$resume"));
+
 $ingredientPost = strip_tags($_POST["ingredientPost"]);
-echo (print("$ingredientPost"));
-$image = strip_tags($_POST["image"]);
-echo (print("$image"));
-$rec_num;
-$tag_num;
-$uti_num = isset($_SESSION['uti_num']);
+
+if(isset($_SESSION['image'])){
+    $image = $_POST['image'];
+}else{
+    $image = "";
+};
+
+$max_rec_num = $bdd->query("select max(REC_NUM)+1 from RECETTE");
+$rec_num = $max_rec_num->fetch();
+
+if(isset($_SESSION['uti_num'])){
+    $uti_num = $_SESSION['uti_num'];
+}else{
+    $uti_num = 1;
+};
 
 
-
-$insert_recette = "insert into RECETTE(REC_NUM,TAG_NUM,CAT_NUM,UTI_NUM,TITRE,CONTENU,RESUME,DATE_CREATION,IMAGE) values($rec_num,$tag_num,'$categorie',$uti,'$titre','$contenu','$resume',sysdate,'$image')";
-echo (print("$insert_recette    "));
+$insert_recette = "INSERT INTO RECETTE(REC_NUM, TAG_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, ?, sysdate(), ?)";
+$statement = $bdd->prepare($insert_recette);
+$statement->execute([$rec_num[0], $tags, $categorie, $uti_num, $titre, $contenu, $resume, $image]);
+echo "votre recette est en train d'être étudier si elle ne contient rien contraire aux règles d'utilisation elle sera bientôt disonible sur notre site !";
 
 ?>

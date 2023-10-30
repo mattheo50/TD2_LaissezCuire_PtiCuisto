@@ -1,13 +1,23 @@
-<?php include_once("../templates/navbar.php")?>
+<?php include_once("../templates/navbar.php");
+      include_once("config.php");?>
 <html>
     <body>
         <form action="traitement_form_recette.php" method="post">
             <label>Quelle est la catégorie de votre recette ? </label>
             <select name="categorie" id="categorie_recette_form_recette">
                 <option value="">--Choississez une catégorie--</option>
-                <option value="Entree">Entrée</option>
-                <option value="Plat">Plat</option>
-                <option value="Dessert">Dessert</option>
+                <option value="0">Entrée</option>
+                <option value="1">Plat</option>
+                <option value="2">Dessert</option>
+            </select><br>
+            <label>Séléctionnez le tag correspondant à votre recette</label>
+            <select name="tags" id="tags_recette_form_recette">
+                <?php
+                $tags = $bdd->query("select INTITULE_TAG,TAG_NUM from TAGS")->fetchAll();
+                for($i = 0; $i < count($tags);$i++){
+                    echo ('<option value="'.$tags[$i]["TAG_NUM"].'">'.$tags[$i]["INTITULE_TAG"].'</option>');
+                }
+                ?>
             </select><br>
             <label>Entrez votre titre: </label>
                 <input name="titre" type="text" placeholder="Titre"></input><br>

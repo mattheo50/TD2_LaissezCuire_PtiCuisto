@@ -1,16 +1,14 @@
 <?php
 
-function liste_deroulante_ingredient_form(){
-    echo('<br>');
-    echo('<select name="ingredient" id="ingredient_listeDeroul_form_recette">');
-    for($i = 0;$i < 10; $i++){
-        echo('<option value="Dessert">'.$i.'</option>');
+include_once("config.php");
+
+//remplit la liste de tag que l'on peut sélectionner
+function remplirListeTag(){
+    $tags = $bdd->query("select INTITULE_TAG,TAG_NUM from TAGS")->fetchAll();
+    for($i = 0; $i < count($tags);$i++){
+        echo ('<option value="'.$tags[$i]["TAG_NUM"].'">'.$tags[$i]["INTITULE_TAG"].'</option>');
     }
-    echo('</select>');
-    echo('<button type="button" onclick="liste_deroulante_ingredient_form()">+</button>');
 }
-
-
 
 ?>
 

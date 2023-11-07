@@ -6,11 +6,13 @@ include "config.php";
 $query = $_POST["query"];
 
 // Requête SQL pour récupérer les suggestions
+
 $sql = "SELECT INTITULE_ING FROM INGREDIENT WHERE INTITULE_ING LIKE :query";
 $stmt = $bdd->prepare($sql);
 $stmt->bindValue(":query", "%$query%");
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 // Affichage des suggestions sous forme d'options pour la liste de données
 if ($results) {

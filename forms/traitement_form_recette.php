@@ -1,4 +1,4 @@
-<?php include_once("../templates/navbar.php"); include_once("config.php");
+<?php include_once("../templates/navbar.php"); require("config.php");
 
 //recuperation des donnees via POST
 $categorie = strip_tags($_POST["categorie"]);
@@ -42,7 +42,8 @@ for($i=0;$i < count($ingredientPost); $i++){
         $statement = $bdd->prepare($select_ing_num);
         $statement->execute([$ingredientPost[$i]]);
         $ingredient = $statement->fetch();
-        array_push($ing_num,$ing_num["ING_NUM"]);
+        $ing_num[];
+        array_push($ing_num,$ingredient["ING_NUM"]);
     }catch(PDOException $e){
         $erreur = true;
     }

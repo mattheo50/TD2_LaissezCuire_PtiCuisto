@@ -6,7 +6,6 @@
     <title>Recette</title>
 </head>
 <body>
-    <p>TAG CAT UTI_NUM TITRE CONTENU RESUME DATECREA DATEMODIF IMAGE</p>
     <h2>"Titre"</h2>
     <p id="rectte_cat">"Cat"</p>
 

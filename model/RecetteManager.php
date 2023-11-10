@@ -11,7 +11,7 @@ class RecetteManager extends Connexion{
 
     public function getOffsetRecettes($offset) {
         $bdd = $this->dbConnect();
-        $req = "select titre, image from RECETTE where verifie=1 limit 10 offset ".$offset;
+        $req = "select titre, image, intitule_cat, resume from RECETTE join CATEGORIE using(cat_num) where verifie=1 limit ".($offset+10);
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql;

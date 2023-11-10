@@ -7,22 +7,21 @@
             echo "<div id='divimg'>";
             echo "<img src='".$data['image']."' alt='Image recette'>";
             echo "</div>";
-            echo "<h4>".$data['titre']."</h4>";
+            echo "<div id='contenuRecipe'>";
+            echo "<h2>".$data['titre']."</h2>";
+            echo "<h3>".$data['intitule_cat']."</h3>";
+            echo "<h4>".$data['resume']."</h4>";
+            echo "</div>";
             echo "</div>";
         }
         ?>
         </div>
 
-        <div id="divButton">
         <?php
-            if ($offset != 10) {
-                echo "<a class='ctrlRecipes' href='index.php?action=nosRecettes&offset=".($_SESSION['offset'] - 10)."'>Précédent</a>";
-            }
-            if ($offset < $count - 3) {
-                echo "<a class='ctrlRecipes' href='index.php?action=nosRecettes&offset=".($_SESSION['offset'] + 10)."'>Suivant</a>";
+            if ($offset < $count - 10) {
+                echo "<a class='ctrlRecipes' href='index.php?action=nosRecettes&offset=".($_SESSION['offset'] + 10)."'>+</a>";
             }
         ?>
-        </div>
     </section>
 <?php $content = ob_get_clean();
 require("vue/template.php"); ?>

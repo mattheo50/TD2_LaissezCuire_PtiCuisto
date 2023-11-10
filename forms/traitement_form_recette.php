@@ -1,4 +1,6 @@
-<?php include_once("../templates/navbar.php");require('Controller/Recette.php');
+<?php session_start();
+
+include_once("../templates/navbar.php");require('Controller/Recette.php');
 
 //recuperation des donnees via POST
 $categorie = strip_tags($_POST["categorie"]);

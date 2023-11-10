@@ -1,6 +1,7 @@
 <?php
 require("controller/accueilController.php");
 require("controller/listeController.php");
+require("controller/recetteController.php");
 session_start();
 
 try{
@@ -9,6 +10,9 @@ try{
         if ($_GET['action'] == 'nosRecettes') {
             $blog = new ListeController();
             $blog->afficheContenu($_GET['offset']);
+        } elseif ($_GET['action'] == 'recette') {
+            $blog = new RecetteController();
+            $blog->afficheContenu($_GET['rec_num']);
         }
     }
     else{

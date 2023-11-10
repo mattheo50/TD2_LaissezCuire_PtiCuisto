@@ -3,7 +3,7 @@
         <div id="listRecipes">
         <?php
         while($data = $recettes->fetch()){
-            echo "<div class='recipe'>";
+            echo "<a class='recipe' href='index.php?action=recette&rec_num=".$data['rec_num']."'>";
             echo "<div id='divimg'>";
             echo "<img src='".$data['image']."' alt='Image recette'>";
             echo "</div>";
@@ -12,7 +12,7 @@
             echo "<h3>".$data['intitule_cat']."</h3>";
             echo "<h4>".$data['resume']."</h4>";
             echo "</div>";
-            echo "</div>";
+            echo "</a>";
         }
         ?>
         </div>

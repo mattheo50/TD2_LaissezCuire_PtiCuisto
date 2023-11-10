@@ -11,7 +11,15 @@ class RecetteManager extends Connexion{
 
     public function getOffsetRecettes($offset) {
         $bdd = $this->dbConnect();
-        $req = "select titre, image, intitule_cat, resume from RECETTE join CATEGORIE using(cat_num) where verifie=1 limit ".($offset+10);
+        $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE join CATEGORIE using(cat_num) where verifie=1 limit ".($offset+10);
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+
+    public function getUneRecette($recetteID) {
+        $bdd = $this->dbConnect();
+        $req = "select * from RECETTE join CATEGORIE using(cat_num) where rec_num=".$recetteID;
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql;
@@ -23,5 +31,13 @@ class RecetteManager extends Connexion{
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql->fetch()[0];
+    }
+
+    public function getIngredientsRecette($recetteID) {
+        $bdd = $this->dbConnect();
+        $req = "select ing_libelle from COMPOSER join INGREDIENT using(ing_num) where rec_num=".$recetteID;
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
     }
 }

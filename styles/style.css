@@ -19,6 +19,11 @@ nav {
     flex-direction: row;
 }
 
+a {
+    text-decoration: none;
+    color: black;    
+}
+
 #logo {
     height: 90%;
     margin: min(5px, 0.5vh);
@@ -216,4 +221,21 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#recipePage {
+    border: none;
+    text-align: justify;
+    padding: 30px;
+}
+
+#recipePage > img {
+    height: 500px;
+}
+
+#titreRecipe {
+    font-size: 1.5em;
+    float: right;
+    padding-right: 100px;
+    max-width: 50vw;
 }

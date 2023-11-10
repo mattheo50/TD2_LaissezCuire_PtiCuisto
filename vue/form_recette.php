@@ -1,12 +1,9 @@
-<?php $title = 'NouvelleRecette'; 
-require_once('Controller/Recette.php');
-require('config.php');
-$recette = new Recette();
-include_once("../templates/navbar.php");
+<?php ob_start();
+ $title = 'NouvelleRecette'; 
 ?>   
 
     <div class="container">
-        <form action="traitement_form_recette.php" method="post">
+        <form action="index.php?action=traitementform" method="post">
 
             <div class="formRecette">
                 <label>Quelle est la catégorie de votre recette ? </label>
@@ -17,15 +14,14 @@ include_once("../templates/navbar.php");
                     <option value="2">Dessert</option>
                 </select><br>
             </div>
-
+            
             <div class="formRecette">
                 <label>Séléctionnez le tag correspondant à votre recette</label>
                 <select name="tags" id="tags_recette_form_recette" required="required">
                 <?php
-                $tags = $bdd->query("select INTITULE_TAG,TAG_NUM from TAGS")->fetchAll();
-                for($i = 0; $i < count($tags);$i++){
-                    echo ('<option value="'.$tags[$i]["TAG_NUM"].'">'.$tags[$i]["INTITULE_TAG"].'</option>');
-                }
+                    while($data = $tags->fetch()){
+                        echo ('<option value="'.$data["TAG_NUM"].'">'.$data["INTITULE_TAG"].'</option>');
+                    }
                 ?>
                 </select><br>
             </div>
@@ -64,4 +60,6 @@ include_once("../templates/navbar.php");
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="./scriptFormRecette.js"></script>
+    <script src="js/scriptFormRecette.js"></script>
+    <?php $content = ob_get_clean();
+    require("vue/template.php");?>

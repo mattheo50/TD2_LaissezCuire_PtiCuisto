@@ -12,7 +12,7 @@ $(document).ready(function() {
 
         if (query !== "") {
             $.ajax({
-                url: "autocomplete.php",
+                url: "model/autocomplete.php",
                 method: "POST",
                 data: { query: query },
                 success: function(data) {

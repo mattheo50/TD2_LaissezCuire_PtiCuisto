@@ -14,8 +14,8 @@
                 <img id="logo" src="images/Logo.png" alt="Logo PtiCuistot">
 
                 <div id="headerLinks">
-                    <a href="index.php">Accueil</a>
-                    <a href="index.php?action=nosRecettes&offset=0">Nos recettes</a>
+                    <a href="">Accueil</a>
+                    <a href="index.php?action=nosrecettes">Nos recettes</a>
                     <div id="filtres">
                         <a id="filtres" href="">Filtres</a>
                         <div id="filtresMenu">
@@ -27,6 +27,7 @@
                         </div>
                     </div>
                     <a href="">Connexion</a>
+                    <a href="index.php?action=creerRecette">Creer recette</a>
                 </div>
             </nav>
         </header>

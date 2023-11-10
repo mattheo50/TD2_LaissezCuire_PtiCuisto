@@ -1,6 +1,7 @@
 <?php session_start();
 
-include_once("../templates/navbar.php");require('Controller/Recette.php');
+require("navbar.php");
+require('controller/CreerRecetteController.php');
 
 //recuperation des donnees via POST
 $categorie = strip_tags($_POST["categorie"]);
@@ -26,8 +27,8 @@ if(isset($_POST['image'])){
 $uti_num = $_SESSION['uti_num'];
 
 
-$recette = new Recette();
+$CreerRecetteController = new CreerRecetteController();
 
-$recette->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
+$CreerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
 
 ?>

@@ -19,6 +19,11 @@ nav {
     flex-direction: row;
 }
 
+a {
+    text-decoration: none;
+    color: black;    
+}
+
 #logo {
     height: 90%;
     margin: min(5px, 0.5vh);
@@ -174,24 +179,25 @@ footer {
     flex-direction: row;
     align-items: center;
     border: 2px solid black;
-    height: 300px;
+    height: 400px;
     width: 40vw;
 }
 
 #divimg {
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #divimg > img {
-    height: 240px;
+    height: 320px;
 }
 
 .ctrlRecipes {
     padding: 20px;
+    aspect-ratio: 1/1;
     border: 2px solid black;
     border-radius: 100vh;
     margin-top: 2vh;
@@ -210,8 +216,29 @@ footer {
     border: none;
 }
 
-#divButton {
+#contenuRecipe {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 5vw;
+}
+
+#recipePage {
+    border: none;
+    text-align: justify;
+    padding: 30px;
+}
+
+#containerTitre > img {
+    height: 500px;
+}
+
+#containerTitre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#titreRecipe {
+    font-size: 1.5em;
+    padding-right: 100px;
+    max-width: 50vw;
 }

@@ -1,5 +1,5 @@
 <?php
-require ("connexion.php");
+require_once ("connexion.php");
 class RecetteManager extends Connexion{
     public function getDernieresRecettes() {
         $bdd = $this->dbConnect();
@@ -11,7 +11,15 @@ class RecetteManager extends Connexion{
 
     public function getOffsetRecettes($offset) {
         $bdd = $this->dbConnect();
-        $req = "select titre, image from RECETTE where verifie=1 limit 10 offset ".$offset;
+        $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE join CATEGORIE using(cat_num) where verifie=1 limit ".($offset+10);
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+
+    public function getUneRecette($recetteID) {
+        $bdd = $this->dbConnect();
+        $req = "select * from RECETTE join CATEGORIE using(cat_num) where rec_num=".$recetteID;
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql;
@@ -25,6 +33,14 @@ class RecetteManager extends Connexion{
         return $sql->fetch()[0];
     }
 
+
+    public function getIngredientsRecette($recetteID) {
+        $bdd = $this->dbConnect();
+        $req = "select intitule_ing from COMPOSER join INGREDIENT using(ing_num) where rec_num=".$recetteID;
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+      
     public function getTags(){
         $bdd = $this->dbConnect();
         $req = "select INTITULE_TAG,TAG_NUM from TAGS";
@@ -33,6 +49,14 @@ class RecetteManager extends Connexion{
         return $sql;
     }
 
+    public function getTagsRecette($recetteID) {
+        $bdd = $this->dbConnect();
+        $req = "select intitule_tag from APPARTENIR join TAGS using(tag_num) where rec_num=".$recetteID;
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+      
     public function ajoutRecette($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image){
         $bdd = $this->dbConnect();
         //récupération du numéro du prochain numero de recette

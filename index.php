@@ -8,6 +8,10 @@ try{
             require("controller/listeController.php");
             $blog = new ListeController();
             $blog->afficheContenu($_GET['offset']);
+        } elseif ($_GET['action'] == 'recette') {
+            require("controller/recetteController.php");
+            $blog = new RecetteController();
+            $blog->afficheContenu($_GET['rec_num']);
         }
         else if($_GET['action'] == 'creerRecette'){
             require("controller/creerRecetteController.php");

@@ -17,10 +17,6 @@ $stmt->bindValue(":query", "%$query%");
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo ("<pre>");
-print_r($results);
-echo ("</pre>");
-
 // Affichage des suggestions sous forme d'options pour la liste de données
 if ($results) {
     foreach ($results as $row) {

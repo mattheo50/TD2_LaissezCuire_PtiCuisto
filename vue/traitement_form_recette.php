@@ -26,7 +26,6 @@ if(isset($_POST['image'])){
 
 $uti_num = $_SESSION['uti_num'];
 
-
 $CreerRecetteController = new CreerRecetteController();
 
 $CreerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);

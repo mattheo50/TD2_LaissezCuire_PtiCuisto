@@ -40,7 +40,8 @@ class RecetteManager extends Connexion{
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql;
-      
+    }
+    
     public function getTags(){
         $bdd = $this->dbConnect();
         $req = "select INTITULE_TAG,TAG_NUM from TAGS";

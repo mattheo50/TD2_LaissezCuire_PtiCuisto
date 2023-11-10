@@ -19,7 +19,6 @@
         }
         ?>
         </div>
-
         <?php
             if ($offset < $count - 10) {
                 echo "<a class='ctrlRecipes' href='index.php?action=nosRecettes&offset=".($_SESSION['offset'] + 10)."'>+</a>";

@@ -18,7 +18,6 @@ class ConnexionManager extends Connexion{
 
         //vérifie si l'utilisateur éxiste, renvoie 0 sinon
         if ($reponse['nb'] == 0) {
-            echo 'pas utilisateur';
             return 0;
         }
 
@@ -34,11 +33,9 @@ class ConnexionManager extends Connexion{
         //vérifie si l'utilisateur est l'admin et place la variable session admin à true
         if ($pseudo == 'admin') {
             $_SESSION['admin']=true;
-            echo "admin";
             return 2;
         }
         $_SESSION['admin']=false;
-        echo "util";
         return 1;
     }
 

@@ -35,7 +35,15 @@ class RecetteManager extends Connexion{
 
     public function getIngredientsRecette($recetteID) {
         $bdd = $this->dbConnect();
-        $req = "select ing_libelle from COMPOSER join INGREDIENT using(ing_num) where rec_num=".$recetteID;
+        $req = "select intitule_ing from COMPOSER join INGREDIENT using(ing_num) where rec_num=".$recetteID;
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+
+    public function getTagsRecette($recetteID) {
+        $bdd = $this->dbConnect();
+        $req = "select intitule_tag from APPARTENIR join TAGS using(tag_num) where rec_num=".$recetteID;
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql;

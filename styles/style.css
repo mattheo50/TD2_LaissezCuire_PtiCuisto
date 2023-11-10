@@ -160,3 +160,58 @@ footer {
     justify-content: center;
     align-items: center;
 }
+
+#listRecipes {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1vh;
+}
+
+.recipe {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid black;
+    height: 300px;
+    width: 40vw;
+}
+
+#divimg {
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#divimg > img {
+    height: 240px;
+}
+
+.ctrlRecipes {
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 100vh;
+    margin-top: 2vh;
+    background-color: white;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+#ctrlRecipes:hover {
+    background-color: #ccc;
+}
+
+#nosRecettes {
+    text-align: center;
+    border: none;
+}
+
+#divButton {
+    display: flex;
+    justify-content: center;
+    gap: 5vw;
+}

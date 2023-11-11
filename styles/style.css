@@ -19,6 +19,11 @@ nav {
     flex-direction: row;
 }
 
+a {
+    text-decoration: none;
+    color: black;    
+}
+
 #logo {
     height: 90%;
     margin: min(5px, 0.5vh);
@@ -159,4 +164,81 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#listRecipes {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1vh;
+}
+
+.recipe {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid black;
+    height: 400px;
+    width: 40vw;
+}
+
+#divimg {
+    height: 400px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#divimg > img {
+    height: 320px;
+}
+
+.ctrlRecipes {
+    padding: 20px;
+    aspect-ratio: 1/1;
+    border: 2px solid black;
+    border-radius: 100vh;
+    margin-top: 2vh;
+    background-color: white;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+#ctrlRecipes:hover {
+    background-color: #ccc;
+}
+
+#nosRecettes {
+    text-align: center;
+    border: none;
+}
+
+#contenuRecipe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#recipePage {
+    border: none;
+    text-align: justify;
+    padding: 30px;
+}
+
+#containerTitre > img {
+    height: 500px;
+}
+
+#containerTitre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#titreRecipe {
+    font-size: 1.5em;
+    padding-right: 100px;
+    max-width: 50vw;
 }

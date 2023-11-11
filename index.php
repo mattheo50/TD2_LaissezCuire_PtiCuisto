@@ -4,11 +4,15 @@ session_start();
 try{
     require("vue/navbar.php");
     if (isset($_GET['action'])) {
-        if ($_GET['action'] == 'nosRecettes') {
+        if ($_GET['action']=='connexion') {
+            require("controller/connexionController.php");
+            $connexion = new ConnexionController();
+            $connexion->afficheContenu();
+        } else if ($_GET['action'] == 'nosRecettes') {
             require("controller/listeController.php");
             $blog = new ListeController();
             $blog->afficheContenu($_GET['offset']);
-        } elseif ($_GET['action'] == 'recette') {
+        } else if ($_GET['action'] == 'recette') {
             require("controller/recetteController.php");
             $blog = new RecetteController();
             $blog->afficheContenu($_GET['rec_num']);
@@ -49,6 +53,6 @@ try{
     }
     require("vue/footer.php");
 }
-catch(Exception $e) {
+catch(Exception $e) {   
     echo 'Erreur : ' . $e->getMessage();
 }

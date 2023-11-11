@@ -26,7 +26,7 @@
                             <a>Ingrédients</a>
                         </div>
                     </div>
-                    <a href="">Connexion</a>
+                    <a href="index.php?action=connexion">Connexion</a>
                     <a href="index.php?action=creerRecette">Creer recette</a>
                 </div>
             </nav>

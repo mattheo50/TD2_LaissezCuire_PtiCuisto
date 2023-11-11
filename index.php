@@ -26,16 +26,8 @@ try{
             $contenu = strip_tags($_POST["contenu"]);
             $resume = strip_tags($_POST["resume"]);
             $ingredientPost = strip_tags($_POST["ingredientPost"]);
-            if(isset($_POST['image'])){
-                $image = $_POST['image'];
-            }else{
-                $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
-            };
-            if(isset($_SESSION['uti_num'])){
-                $uti_num = $_SESSION['uti_num'];
-            }else{
-                $uti_num = 1; 
-            };
+            $image = strip_tags($_POST['image']);
+            $uti_num = $_SESSION['uti_num'];
             $creerRecetteController = new CreerRecetteController();
             $creerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
             echo '<p>Nous allons éxaminer votre demande, vous allez être redirigé automatiquement vers l'."'".'accueil</p>';

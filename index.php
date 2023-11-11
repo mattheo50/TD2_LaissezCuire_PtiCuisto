@@ -21,7 +21,7 @@ try{
         else if($_GET['action'] == 'traitementform'){
             require('controller/creerRecetteController.php');
             $categorie = strip_tags($_POST["categorie"]);
-            $tags = strip_tags($_POST["tags"]);
+            $tags = strip_tags($_POST["TagPost"]);
             $titre = strip_tags($_POST["titre"]);
             $contenu = strip_tags($_POST["contenu"]);
             $resume = strip_tags($_POST["resume"]);
@@ -38,7 +38,7 @@ try{
             };
             $creerRecetteController = new CreerRecetteController();
             $creerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
-            echo '<p>Nous allons éxaminer votre demande</p>';
+            echo '<p>Nous allons éxaminer votre demande, vous allez être redirigé automatiquement vers l'."'".'accueil</p>';
             echo '<meta http-equiv="refresh" content="5;URL=index.php">';
         }
     }

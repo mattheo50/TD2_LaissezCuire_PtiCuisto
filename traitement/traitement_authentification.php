@@ -1,21 +1,25 @@
 <?php
 
+//initialise la variable erreur
 $erreur = false;
 
+//cré un connexion manager pour utiliser ses méthodes
 require("model/ConnexionManager.php");
 $conn = new ConnexionManager();
 
+//met la variable errreur à true si certains champs ne sont pas initialisés
 if (isset($_POST)) {
-    if (!isset($_POST["pseudo"]) || !isset( $_POST["motDePasse"]) || $_POST["pseudo"]=='' || $_POST["motDePasse"]=='') {
+    if (!isset($_POST["pseudo"]) || !isset( $_POST["motDePasse"])) {
         $erreur = true;
     }
 } 
 
+//si erreur est à true, affiche la vue
 if ($erreur == true) {
     require("vue/authentification.php");
 }
-else {
 
+else {
     $res = $conn -> getUtilisateur($_POST['pseudo'], $_POST['motDePasse']);
 
     if ($res == 0) {

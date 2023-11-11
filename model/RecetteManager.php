@@ -92,7 +92,7 @@ class RecetteManager extends Connexion{
 
 
         // Insertion dans recette    !!!!!!!!!Plus de TAG
-        $insert_recette = "INSERT INTO RECETTE(REC_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, sysdate(), ?)";
+        $insert_recette = "INSERT INTO RECETTE(REC_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION,DATE_MODIFICATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, sysdate(),sysdate() ,?)";
         $statement = $bdd->prepare($insert_recette);
         $statement->execute([$rec_num[0], $categorie, $uti_num, $titre, $contenu, $resume, $image]);
 

@@ -45,6 +45,12 @@ try{
             echo '<p>Nous allons éxaminer votre demande</p>';
             echo '<meta http-equiv="refresh" content="5;URL=index.php">';
         }
+        else if($_GET['action'] == 'deconnexion'){
+            unset($_SESSION['uti_num']);
+            $_SESSION['admin'] = 'false';
+            echo 'deconnexion...';
+            echo '<script>document.location="index.php"</script>';  
+        }
     }
     else{       
         require_once("controller/accueilController.php");

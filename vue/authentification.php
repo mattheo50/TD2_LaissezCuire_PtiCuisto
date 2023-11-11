@@ -1,6 +1,8 @@
 <?php ob_start() ?>
 
-<form action="traitementConnexion.php" method="post">
+    
+
+<form action="" method="post">
     Pseudo ou Email :
     <input type="text" name="pseudo">
     Mot de passe :

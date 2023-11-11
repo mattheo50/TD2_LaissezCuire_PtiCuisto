@@ -4,7 +4,11 @@ session_start();
 try{
     require("vue/navbar.php");
     if (isset($_GET['action'])) {
-        if ($_GET['action'] == 'nosRecettes') {
+        if ($_GET['action']=='connexion') {
+            require("controller/connexionController.php");
+            $connexion = new ConnexionController();
+            $connexion->afficheContenu();
+        } else if ($_GET['action'] == 'nosRecettes') {
             require("controller/listeController.php");
             $blog = new ListeController();
             $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 0;
@@ -57,6 +61,12 @@ try{
             echo '<p>Nous allons éxaminer votre demande</p>';
             echo '<meta http-equiv="refresh" content="5;URL=index.php">';
         }
+        else if($_GET['action'] == 'deconnexion'){
+            unset($_SESSION['uti_num']);
+            $_SESSION['admin'] = 'false';
+            echo 'deconnexion...';
+            echo '<script>document.location="index.php"</script>';  
+        }
     }
     else{       
         require_once("controller/accueilController.php");
@@ -65,6 +75,6 @@ try{
     }
     require("vue/footer.php");
 }
-catch(Exception $e) {
+catch(Exception $e) {   
     echo 'Erreur : ' . $e->getMessage();
 }

@@ -26,8 +26,18 @@
                             <a>Ingrédients</a>
                         </div>
                     </div>
-                    <a href="index.php?action=connexion">Connexion</a>
-                    <a href="index.php?action=creerRecette">Creer recette</a>
+                    <?php
+                    if (isset($_SESSION['uti_num'])) {
+                        echo '<a href="index.php?action=creerRecette">Creer recette</a>';
+                        if ($_SESSION['admin']) {
+                            echo '<a href="index.php?action=validerRecette"> Valider recette';
+                        }
+                        echo '<a href="index.php?action=deconnexion">Deconnexion</a>';
+                    }
+                    else {
+                        echo '<a href="index.php?action=connexion">Connexion</a>';
+                    }
+                    ?>
                 </div>
             </nav>
         </header>

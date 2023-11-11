@@ -59,10 +59,30 @@ class RecetteManager extends Connexion{
     }
       
     public function ajoutRecette($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image){
+
+        // Vérifier si c'est une URL valide
+        if (filter_var($image, FILTER_VALIDATE_URL) === false) {
+            $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
+        } else {
+            // Vérifier si l'extension du fichier correspond à une extension d'image
+            $extensions_autorises = array("jpg", "jpeg", "png", "gif");
+            $urlElements = parse_url($image, PHP_URL_PATH);
+            $info_url = pathinfo($urlElements, PATHINFO_EXTENSION);
+        
+            if (!(in_array(strtolower($info_url), $extensions_autorises))) {
+                $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
+            }
+        }
+
+
         $bdd = $this->dbConnect();
         //récupération du numéro du prochain numero de recette
         $max_rec_num = $bdd->query("select max(REC_NUM)+1 from RECETTE");
         $rec_num = $max_rec_num->fetch();
+
+        //stockage dans un tableau des tags
+        $tag_num = explode("/",$tags);
+
 
         //verification de la validité des ingrédients
         $ingredientPost = explode("/",$ingredientPost);
@@ -91,8 +111,8 @@ class RecetteManager extends Connexion{
 
 
 
-        // Insertion dans recette    !!!!!!!!!Plus de TAG
-        $insert_recette = "INSERT INTO RECETTE(REC_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, sysdate(), ?)";
+        // Insertion dans recette
+        $insert_recette = "INSERT INTO RECETTE(REC_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION,DATE_MODIFICATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, sysdate(),sysdate() ,?)";
         $statement = $bdd->prepare($insert_recette);
         $statement->execute([$rec_num[0], $categorie, $uti_num, $titre, $contenu, $resume, $image]);
 
@@ -103,5 +123,13 @@ class RecetteManager extends Connexion{
             $statement = $bdd->prepare($insert_composer);
             $statement->execute([$rec_num[0],$ing_num[$i]]);
         } 
+        //série d'insertion dans la table appartenir
+        for($i=0;$i < count($tag_num); $i++){
+            //j'insere le numéro d'ingrédient à la recette dans la table composer/*
+            $insert_appartenir = "INSERT INTO APPARTENIR(REC_NUM, TAG_NUM) VALUES (?, ?)";
+            $statement = $bdd->prepare($insert_appartenir);
+            $statement->execute([$rec_num[0],$tag_num[$i]]);
+        }
+
     }
 }

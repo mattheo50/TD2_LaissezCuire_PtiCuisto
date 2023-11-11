@@ -16,12 +16,12 @@ $resume = strip_tags($_POST["resume"]);
 
 $ingredientPost = strip_tags($_POST["ingredientPost"]);
 
-//non obligatoire
-if(isset($_POST['image'])){
-    $image = $_POST['image'];
-}else{
-    $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
-};
+// //non obligatoire
+// if(!empty($_POST['image'])){
+//     $image = $_POST['image'];
+// }else{
+//     $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
+// };
 
 
 $uti_num = $_SESSION['uti_num'];

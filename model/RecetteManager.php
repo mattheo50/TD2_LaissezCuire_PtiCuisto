@@ -59,6 +59,22 @@ class RecetteManager extends Connexion{
     }
       
     public function ajoutRecette($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image){
+
+        // Vérifier si c'est une URL valide
+        if (filter_var($image, FILTER_VALIDATE_URL) === false) {
+            $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
+        } else {
+            // Vérifier si l'extension du fichier correspond à une extension d'image
+            $extensions_autorises = array("jpg", "jpeg", "png", "gif");
+            $urlElements = parse_url($image, PHP_URL_PATH);
+            $info_url = pathinfo($urlElements, PATHINFO_EXTENSION);
+        
+            if (!(in_array(strtolower($info_url), $extensions_autorises))) {
+                $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
+            }
+        }
+
+
         $bdd = $this->dbConnect();
         //récupération du numéro du prochain numero de recette
         $max_rec_num = $bdd->query("select max(REC_NUM)+1 from RECETTE");

@@ -15,15 +15,15 @@
 
                 <div id="headerLinks">
                     <a href="index.php">Accueil</a>
-                    <a href="index.php?action=nosRecettes&offset=0">Nos recettes</a>
+                    <a href="index.php?action=nosRecettes">Nos recettes</a>
                     <div id="filtres">
-                        <a id="filtres" href="">Filtres</a>
+                        <a id="filtres" href="index.php?action=filtres">Filtres</a>
                         <div id="filtresMenu">
-                            <a>Catégories</a>
+                            <a href="index.php?action=filtresCategorie">Catégories</a>
                             <hr>
-                            <a>Titre</a>
+                            <a href="index.php?action=filtresTitre">Titre</a>
                             <hr>
-                            <a>Ingrédients</a>
+                            <a href="index.php?action=filtresIngredients">Ingrédients</a>
                         </div>
                     </div>
                     <a href="">Connexion</a>

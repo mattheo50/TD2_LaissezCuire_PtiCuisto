@@ -47,25 +47,15 @@ a {
     font-size: min(1em, 5vh);
 }
 
-#filtres {
-    width: 230px;
-    max-width: 20vw;
-}
-
-#filtres a {
-    padding: 0;
-}
-
 #filtresMenu {
-    width: 230px;
-    max-width: 20vw;
     display: none;
     position: absolute;
     background-color: #7890cd;
 }
 
-#filtres:hover  #filtresMenu {
+#filtres:hover #filtresMenu {
     display: block;
+    position: relative;
 }
 
 hr {

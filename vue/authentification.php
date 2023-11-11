@@ -1,6 +1,6 @@
 <?php ob_start() ?>
 
-    
+
 
 <form action="" method="post">
     Pseudo ou Email :

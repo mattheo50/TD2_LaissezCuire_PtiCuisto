@@ -47,25 +47,15 @@ a {
     font-size: min(1em, 5vh);
 }
 
-#filtres {
-    width: 230px;
-    max-width: 20vw;
-}
-
-#filtres a {
-    padding: 0;
-}
-
 #filtresMenu {
-    width: 230px;
-    max-width: 20vw;
     display: none;
     position: absolute;
     background-color: #7890cd;
 }
 
-#filtres:hover  #filtresMenu {
+#filtres:hover #filtresMenu {
     display: block;
+    position: relative;
 }
 
 hr {
@@ -167,51 +157,50 @@ footer {
 }
 
 #listRecipes {
-    display: flex;
-    width: 100vw;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 90vw;
     justify-content: center;
     gap: 1vh;
 }
 
 .recipe {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     border: 2px solid black;
-    height: 400px;
-    width: 40vw;
 }
 
 #divimg {
-    height: 400px;
-    width: 400px;
+    max-height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #divimg > img {
-    height: 320px;
+    max-width: 80%;
+    max-height: 80%;
 }
 
 .ctrlRecipes {
-    padding: 20px;
-    aspect-ratio: 1/1;
+    width: 2em;
+    height: 2em;
     border: 2px solid black;
     border-radius: 100vh;
     margin-top: 2vh;
-    background-color: white;
     cursor: pointer;
-    color: black;
     text-decoration: none;
 }
 
-#ctrlRecipes:hover {
+.ctrlRecipes:hover {
     background-color: #ccc;
 }
 
 #nosRecettes {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     border: none;
 }
@@ -220,6 +209,8 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 20px;
+    font-size: 0.6em;
 }
 
 #recipePage {
@@ -241,4 +232,25 @@ footer {
     font-size: 1.5em;
     padding-right: 100px;
     max-width: 50vw;
+}
+
+.selectionRecherche {
+    margin-top: 20px;
+    border: none;
+}
+
+.selectionRecherche form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.selectionInput, .selectionSelect, .selectionButton {
+    padding: 5px;
+    background-color: white;
+    font-family: inherit;
+    font-size: inherit;
+    border: 2px solid black;
 }

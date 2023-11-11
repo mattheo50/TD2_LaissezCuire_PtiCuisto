@@ -4,9 +4,9 @@
 
 <form action="" method="post">
     Pseudo ou Email :
-    <input type="text" name="pseudo">
+    <input type="text" value="<?php echo $conn->updateFormText('pseudo') ?>" name="pseudo">
     Mot de passe :
-    <input type="text" name="motDePasse">
+    <input type="password"  value="<?php echo $conn->updateFormText('motDePasse') ?>" name="motDePasse">
     <input type="submit" value="Se Connecter">
 </form>
 

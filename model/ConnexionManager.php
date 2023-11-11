@@ -40,5 +40,17 @@ class ConnexionManager extends Connexion{
     }
 
 
+    public function updateFormText($n)
+	{  
+		if (!empty($_POST[$n]))
+		{
+		  $var = $_POST[$n];
+		  if ($var <> "")
+			echo $var; 
+		}
+		else 
+		  echo ""; 
+	}
+
 
 }

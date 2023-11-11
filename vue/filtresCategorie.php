@@ -1,11 +1,11 @@
 <?php ob_start() ?>
     <section class="selectionRecherche" id="selectionIngredients">
-        <form action='index.php?action=filtresIngredients&offset=0' method='post'>
-            <label for='dropdownIngredients'>Ingrédient : </label>
-            <select class='selectionSelect' id='dropdownIngredients' name='ing_num'>
+        <form action='index.php?action=filtresCategorie&offset=0' method='post'>
+            <label for='dropdownCategorie'>Catégorie : </label>
+            <select class='selectionSelect' id='dropdownCategorie' name='cat_num'>
                 <?php
-                    while ($ingredient = $ingredients->fetch()) {
-                        echo "<option value=".$ingredient['ing_num'].">".$ingredient['intitule_ing']."</option>";
+                    while ($categorie = $categories->fetch()) {
+                        echo "<option value=".$categorie['cat_num'].">".$categorie['intitule_cat']."</option>";
                     }
                 ?>
             </select>
@@ -34,7 +34,7 @@
         </div>
         <?php
             if ($offset < $count - 10) {
-                echo "<a class='ctrlRecipes' href='index.php?action=filtresIngredients&offset=".($_SESSION['offset'] + 10)."'>+</a>";
+                echo "<a class='ctrlRecipes' href='index.php?action=filtresCategorie&offset=".($_SESSION['offset'] + 10)."'>+</a>";
             }
         ?>
     </section>

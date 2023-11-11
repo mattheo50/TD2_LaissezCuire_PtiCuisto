@@ -23,8 +23,23 @@ class FiltresController{
         require("vue/filtresIngredients.php");
     }
 
-    public function afficheContenuCategorie(){
-        require("vue/edito.php");
+    public function afficheContenuCategorie($cat_num, $offset){
+        $filtresManager = new FiltresManager();
+        $recetteManager = new RecetteManager();
+        
+        if ($cat_num != -1) {
+            $recettes = $filtresManager->getCategorieRecettes($cat_num, $offset)->fetchAll();
+            $count = $filtresManager->getSizeCategories($cat_num);
+        } else {
+            $recettes = $recetteManager->getOffsetRecettes($offset)->fetchAll();
+            $count = $recetteManager->getSizeRecettes();
+        }
+        for ($i = 0; $i < sizeof($recettes); $i++) {
+            $recettes[$i]['tags'] = $recetteManager->getTagsRecette($recettes[$i]['rec_num'])->fetchAll();
+        }
+        $_SESSION['offset'] = $offset;
+        $categories = $filtresManager->getCategories();
+        require("vue/filtresCategorie.php");
     }
     
     public function afficheContenuTitre($recherche, $offset){

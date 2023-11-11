@@ -8,7 +8,7 @@ try{
             require("controller/listeController.php");
             $blog = new ListeController();
             $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 0;
-            $blog->afficheContenu($_GET['offset']);
+            $blog->afficheContenu($offset);
         } elseif ($_GET['action'] == 'recette') {
             require("controller/recetteController.php");
             $blog = new RecetteController();
@@ -21,7 +21,8 @@ try{
                 $ing_num = (isset($_POST['ing_num'])) ? $_POST['ing_num'] : -1;
                 $blog->afficheContenuIngredients($ing_num, $offset);
             } elseif ($_GET['action'] == 'filtresCategorie') {
-                $blog->afficheContenuCategorie();
+                $cat_num = (isset($_POST['cat_num'])) ? $_POST['cat_num'] : -1;
+                $blog->afficheContenuCategorie($cat_num, $offset);
             } else {
                 $recherche = (isset($_POST['recherche'])) ? $_POST['recherche'] : "";
                 $blog->afficheContenuTitre($recherche, $offset);

@@ -1,10 +1,10 @@
 <?php ob_start() ?>
-    <section id="selectionTitre">
+    <section class="selectionRecherche" id="selectionTitre">
         <form action='index.php?action=filtresTitre&offset=0' method='post'>
             <label for='fieldTitre'>Titre : </label>
-            <input type='text' id='fieldTitre' name='recherche'>
+            <input class='selectionInput' type='text' id='fieldTitre' name='recherche'>
 
-            <button type='submit'>Rechercher</button>
+            <button class='selectionButton' type='submit'>Rechercher</button>
         </form>
     </section>
     <section id="nosRecettes">   

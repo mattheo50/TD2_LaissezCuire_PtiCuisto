@@ -12,6 +12,15 @@ class FiltresManager extends Connexion{
         return $sql;
     }
 
+    public function getSizeRecherche($recherche) {
+        $bdd = $this->dbConnect();
+        $req = "select count(*) from RECETTE
+                where lower(trim(titre)) like lower(trim('%".$recherche."%')) and verifie=1";
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql->fetch()[0];
+    }
+
     public function getIngredientRecettes($ing_num, $offset) {
         $bdd = $this->dbConnect();
         $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE
@@ -34,18 +43,37 @@ class FiltresManager extends Connexion{
         return $sql->fetch()[0];
     }
 
-    public function getSizeRecherche($recherche) {
+    public function getIngredients() {
+        $bdd = $this->dbConnect();
+        $req = "select ing_num, intitule_ing from INGREDIENT";
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+    
+    public function getCategorieRecettes($cat_num, $offset) {
+        $bdd = $this->dbConnect();
+        $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE
+                join CATEGORIE using(cat_num)
+                where cat_num=".$cat_num." and verifie=1
+                limit ".($offset+10);
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+
+    public function getSizeCategories($cat_num) {
         $bdd = $this->dbConnect();
         $req = "select count(*) from RECETTE
-                where lower(trim(titre)) like lower(trim('%".$recherche."%')) and verifie=1";
+                where cat_num=".$cat_num." and verifie=1";
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql->fetch()[0];
     }
 
-    public function getIngredients() {
+    public function getCategories() {
         $bdd = $this->dbConnect();
-        $req = "select ing_num, intitule_ing from INGREDIENT";
+        $req = "select cat_num, intitule_cat from CATEGORIE";
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql;

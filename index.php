@@ -4,7 +4,11 @@ session_start();
 try{
     require("vue/navbar.php");
     if (isset($_GET['action'])) {
-        if ($_GET['action'] == 'nosRecettes') {
+        if ($_GET['action']=='connexion') {
+            require("controller/connexionController.php");
+            $connexion = new ConnexionController();
+            $connexion->afficheContenu();
+        } else if ($_GET['action'] == 'nosRecettes') {
             require("controller/listeController.php");
             $blog = new ListeController();
             $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 0;
@@ -37,25 +41,23 @@ try{
         else if($_GET['action'] == 'traitementform'){
             require('controller/creerRecetteController.php');
             $categorie = strip_tags($_POST["categorie"]);
-            $tags = strip_tags($_POST["tags"]);
+            $tags = strip_tags($_POST["TagPost"]);
             $titre = strip_tags($_POST["titre"]);
             $contenu = strip_tags($_POST["contenu"]);
             $resume = strip_tags($_POST["resume"]);
             $ingredientPost = strip_tags($_POST["ingredientPost"]);
-            if(isset($_POST['image'])){
-                $image = $_POST['image'];
-            }else{
-                $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
-            };
-            if(isset($_SESSION['uti_num'])){
-                $uti_num = $_SESSION['uti_num'];
-            }else{
-                $uti_num = 1; 
-            };
+            $image = strip_tags($_POST['image']);
+            $uti_num = $_SESSION['uti_num'];
             $creerRecetteController = new CreerRecetteController();
             $creerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
-            echo '<p>Nous allons éxaminer votre demande</p>';
+            echo '<p>Nous allons éxaminer votre demande, vous allez être redirigé automatiquement vers l'."'".'accueil</p>';
             echo '<meta http-equiv="refresh" content="5;URL=index.php">';
+        }
+        else if($_GET['action'] == 'deconnexion'){
+            unset($_SESSION['uti_num']);
+            $_SESSION['admin'] = 'false';
+            echo 'deconnexion...';
+            echo '<script>document.location="index.php"</script>';  
         }
     }
     else{       
@@ -65,6 +67,6 @@ try{
     }
     require("vue/footer.php");
 }
-catch(Exception $e) {
+catch(Exception $e) {   
     echo 'Erreur : ' . $e->getMessage();
 }

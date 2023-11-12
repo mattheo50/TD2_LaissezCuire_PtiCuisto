@@ -2,6 +2,8 @@
 
 Ceci est un site de recette participatif, vous pouvez proposez des recettes et si elle sont validées par l'administrateur elles seront disponible sur notre site 👨‍🍳👩‍🍳
 
+Ensuite c'est à vous de jouer pour refaire les recettes qui vous paraissent savoureuse ! :fondue:
+
 ## Faite vous votre propre avis !
 
 Vous pouvez tester notre site : [LaissezCuire](https://dev-22013679.users.info.unicaen.fr/TD2_LaissezCuire_PtiCuisto-main/)
@@ -18,16 +20,16 @@ Vous pouvez tester notre site : [LaissezCuire](https://dev-22013679.users.info.u
 ## Fonctionnalités :gear:
 
 - Consultez nos recettes en étant connecté ou non
-- Si vous avez une recherche particulière vous pouvez utilisez les différents filtres mis en place
-- Connectez vous grâce au menu de connexion
+- Connectez vous / Inscrivez vous, grâce au menu de connexion
 - Créez une recette grâce à la page dediée à cet effet
+- Modifiez / Supprimez vos propres recettes
+- Faire une recherche de recette par nom/tag/catégorie
 
 ## Mise à jours à venir 🗓️
-- La page d'inscription
-- Peaufinage de fonctionnalitées déja présentes
+- Peaufinage de fonctionnalitées déja présentes (ex : un bouton de suppression d'ingrédients)
 - Affichage de vos recettes publiées
 - Informations de votre compte
-- Et d'autre fonctionnalitées arrivent !
+- Et d'autre fonctionnalités arrivent !
 
 ## Contribution :technologist::office_worker::technologist:
 

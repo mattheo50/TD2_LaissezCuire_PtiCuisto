@@ -16,9 +16,11 @@
               <p>".$data['CONTENU']."</p>";
         if (isset($_SESSION['admin'])) {
             if($_SESSION['admin']){
-                if($_GET['act'] == 'validation'){
-                    echo "<button onclick='validerRecette(".$data['REC_NUM'].")'>Valider</button>";
+                if(isset($_GET['act'])){
+                    echo "<button id='validerButton' onclick='validerRecette(".$data['REC_NUM'].")'>Valider</button>";
                 }
+            }
+        }
         if (isset($_SESSION['uti_num']) && isset($_SESSION['admin'])) {
             if ($data['UTI_NUM'] == (int)$_SESSION['uti_num'] || isset($_SESSION['admin'])) {
                 echo "<button id='supprButton' onclick='supprConfirm(".$data['REC_NUM'].")'>Supprimer la recette</button>";
@@ -36,6 +38,6 @@
                 }
             }
         </script>
-    </section>)
+    </section>
 <?php $content = ob_get_clean();
 require("vue/template.php"); ?>

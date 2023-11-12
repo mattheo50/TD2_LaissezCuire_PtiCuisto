@@ -50,8 +50,8 @@ try{
             $uti_num = $_SESSION['uti_num'];
             $creerRecetteController = new CreerRecetteController();
             $creerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
-            echo '<p>Nous allons éxaminer votre demande, vous allez être redirigé automatiquement vers l'."'".'accueil</p>';
-            echo '<meta http-equiv="refresh" content="5;URL=index.php">';
+            echo '<p>Nous allons éxaminer votre demande, vous allez être redirigé automatiquement vers l</p>';
+            echo '<meta http-equiv="refresh" content="3;URL=index.php">';
         }
         else if($_GET['action'] == 'deconnexion'){
             unset($_SESSION['uti_num']);
@@ -59,6 +59,18 @@ try{
             echo 'deconnexion...';
             echo '<script>document.location="index.php"</script>';  
         }
+        else if($_GET['action'] == 'validerRecette'){
+            require("controller/recetteController.php");
+            $validerRecette = new RecetteController();
+            $validerRecette->afficheRecetteAVerifier();
+        }
+        else if($_GET['action'] == 'validerLaRecette'){
+            require("controller/recetteController.php");
+            $validerRecette = new RecetteController();
+            $validerRecette->validerLaRecette($_GET['rec_num']);
+            echo '<p>En cours de validation, vous serez redirigé automatiquement</p>;
+            echo '<meta http-equiv="refresh" content="3;URL=index.php">';
+       }
         else if($_GET['action'] == 'suppr') {
             require_once("controller/accueilController.php");
             $recetteManager = new RecetteManager();

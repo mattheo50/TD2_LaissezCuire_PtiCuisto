@@ -78,6 +78,16 @@ try{
             echo '<p>En cours de suppression, vous serez redirigé automatiquement vers notre accueil</p>';
             echo '<meta http-equiv="refresh" content="3;URL=index.php">';
         }
+        else if($_GET['action'] == 'modifEdito') {
+            require_once("vue/modificationEdito.php");
+        }
+        else if($_GET['action'] == 'EditoModifie') {
+            $msg = strip_tags($_POST['contenu']);
+            require_once("model/accueilManager.php");
+            $manager = new accueilManager();
+            $manager->setEdito($msg);
+            echo '<script>document.location="index.php"</script>';  
+        }
     }
     else{       
         require_once("controller/accueilController.php");

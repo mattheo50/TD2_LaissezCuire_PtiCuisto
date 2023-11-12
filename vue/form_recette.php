@@ -16,15 +16,9 @@
             
             <div class="formRecette">
                 <label>Séléctionnez le tag correspondant à votre recette</label>
-                <select name="tags" id="tags_recette_form_recette" required="required">
-                <?php
-                    while($data = $tags->fetch()){
-                        echo ('<option value="'.$data["TAG_NUM"].'">'.$data["INTITULE_TAG"].'</option>');
-                    }
-                ?>
-                </select>
+                <input type="search" id="tags_recette_form_recette" name="tags" list="ListTag" autocomplete="off" >
                 <button id="ajout_tag_bouton" type="button" >+</button>
-                <datalist id="Listingredient"></datalist><br>
+                <datalist id="ListTag"></datalist><br>
 
                 <label>Tags :</label>
                 <label id="ListeTagAjoute"></label><br>

@@ -24,7 +24,7 @@ a {
     color: black;    
 }
 
-button, input[type=submit] {
+.connButton {
     background-color: #2a3990; /* Green */
     border: none;
     border-radius: 6px;
@@ -33,7 +33,7 @@ button, input[type=submit] {
     text-align: center;
     display: inline-block;
     font-family: "Pacifico", cursive;
-    font-size: 0.5em;
+    font-size: 0.7em;
 }
 
 #logo {
@@ -195,6 +195,8 @@ footer {
 }
 
 .ctrlRecipes {
+    font-size: inherit;
+    font-family: inherit;
     width: 2em;
     height: 2em;
     border: 2px solid black;
@@ -263,17 +265,10 @@ footer {
     gap: 20px;
 }
 
-.selectionInput, .selectionSelect, .selectionButton {
-    padding: 5px;
-    background-color: white;
-    font-family: inherit;
-    font-size: inherit;
-    border: 2px solid black;
-}
-
 #editDiv {
     width: 100vw;
     display: flex;
+    margin: 20px;
     justify-content: center;
     gap: 3vw;
 }
@@ -292,13 +287,8 @@ footer {
 }
 
 #validerButton{
-    padding: 5px;
-    margin: 20px;
     background-color: greenyellow;
-    font-family: inherit;
-    font-size: inherit;
     color: white;
-    border: 2px solid black;
 }
 
 
@@ -316,7 +306,7 @@ footer {
 }
 
 #authentificationDiv {
-    margin-top: 10%;
+    margin-top: 70px;
     margin-left: 75%;
 }
 
@@ -336,8 +326,30 @@ footer {
     margin-right: 40px;
 }
 
+.formRecette {
+    padding: 20px 0;
+}
 
+.selectionInput, .selectionSelect, .selectionButton, .grosField, textarea {
+    padding: 5px;
+    background-color: white;
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    border: 2px solid black;
+}
 
+#formEditRecette {
+    margin: 0 50px;
+}
 
+.authBox {
+    margin-top: 50px;
+}
 
-
+#imgLastRecipe {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+}

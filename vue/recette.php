@@ -17,12 +17,19 @@
         if (isset($_SESSION['admin'])) {
             if(boolval($_SESSION['admin'])){
                 if(isset($_GET['act'])){
-                    echo "<button id='validerButton' onclick='validerRecette(".$data['REC_NUM'].")'>Valider</button>";
+                    echo "<div id='editDiv'>
+                          </div";
                 }
             }
         }
         if (isset($_SESSION['uti_num']) && isset($_SESSION['admin'])) {
-            if ($data['UTI_NUM'] == (int)$_SESSION['uti_num'] || isset($_SESSION['admin'])) {
+            if (isset($_SESSION['admin'])) {
+                echo "<div id='editDiv'>
+                        <button class='editButton' id='validerButton' onclick='validerRecette(".$data['REC_NUM'].")'>Valider</button>
+                        <a class='editButton' id='modifButton' href='index.php?action=modifRecette&rec_num=".$data['REC_NUM']."'>Modifier la recette</a>
+                        <button class='editButton' id='supprButton' onclick='supprConfirm(".$data['REC_NUM'].")'>Supprimer la recette</button>
+                      </div>";
+            } else if ($data['UTI_NUM'] == (int)$_SESSION['uti_num']) {
                 echo "<div id='editDiv'>
                         <a class='editButton' id='modifButton' href='index.php?action=modifRecette&rec_num=".$data['REC_NUM']."'>Modifier la recette</a>
                         <button class='editButton' id='supprButton' onclick='supprConfirm(".$data['REC_NUM'].")'>Supprimer la recette</button>

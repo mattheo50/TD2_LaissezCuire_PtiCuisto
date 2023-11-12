@@ -66,6 +66,16 @@ try{
             $blog = new AccueilController();
             $blog->afficheContenu();
         }
+        else if($_GET['action'] == 'modifEdito') {
+            require_once("vue/modificationEdito.php");
+        }
+        else if($_GET['action'] == 'EditoModifie') {
+            $msg = strip_tags($_POST['contenu']);
+            require_once("model/accueilManager.php");
+            $manager = new accueilManager();
+            $manager->setEdito($msg);
+            echo '<script>document.location="index.php"</script>';  
+        }
     }
     else{       
         require_once("controller/accueilController.php");

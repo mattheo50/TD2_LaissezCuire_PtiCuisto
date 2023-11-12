@@ -104,4 +104,29 @@ class RecetteManager extends Connexion{
             $statement->execute([$rec_num[0],$ing_num[$i]]);
         } 
     }
+
+    public function getRecetteAVerifier(){
+        $bdd = $this->dbConnect();
+        $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE join CATEGORIE using(cat_num) where verifie=0 order by date_modification";
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+
+    public function getNombreRecceteAVerifier(){
+        $bdd = $this->dbConnect();
+        $req = "select count(*) from RECETTE where verifie=0";
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql->fetch()[0];
+
+    }
+
+    public function validationRecette($rec_num){
+        $bdd = $this->dbConnect();
+        $req = "update RECETTE SET VERIFIE=1 where REC_NUM = ".$rec_num;
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+    }
+    
 }

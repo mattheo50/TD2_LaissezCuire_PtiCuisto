@@ -14,7 +14,19 @@
               </div>
               </div>
               <p>".$data['CONTENU']."</p>";
+        if (isset($_SESSION['admin'])) {
+            if($_SESSION['admin']){
+                if($_GET['act'] == 'validation'){
+                    echo "<button onclick='validerRecette(".$data['REC_NUM'].")'>Valider</button>";
+                }
+            }
+        }
         ?>
+        <script>
+            function validerRecette(rec_num){
+                document.location='index.php?action=validerLaRecette&rec_num='+rec_num;
+            }
+        </script>
     </section>
 <?php $content = ob_get_clean();
 require("vue/template.php"); ?>

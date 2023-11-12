@@ -5,6 +5,9 @@ let ListeTagAjoutee = [];
 const ajoutIngredient = document.getElementById("ajout_ing_bouton");
 const ajoutTag = document.getElementById("ajout_tag_bouton");
 const TagSelectionee = document.getElementById("tags_recette_form_recette");
+const ingredientsListeCachee = document.getElementById("ingredientPost");
+const tagListeCachee = document.getElementById("TagPost");
+const formCreationRecette = document.querySelector("form");
 let premierTag = true;
 let premierIngredient = true;
 
@@ -59,15 +62,37 @@ ajoutTag.addEventListener("click",(event)=>{
      }
 });
 
+formCreationRecette.addEventListener("submit", (event) => {
+    if (tagListeCachee.value == '') {
+        // Si c'est vide on affiche une alert
+        erreur();
+        // j'empeche le form de s'envoyer
+        event.preventDefault();
+    }else if (ingredientsListeCachee.value == '') {
+        // Si la liste des ingrédients est vide on ne submit pas le form
+        erreur();
+        // j'empeche le form de s'envoyer
+        event.preventDefault();
+    }
+  });
+
+  function erreur() {
+    if (tagListeCachee.value == '') {
+        alert("La liste de tags ne peut pas être vide");
+    }else if (ingredientsListeCachee.value == '') {
+        alert("Votre liste d'ingrédients est vide, veuillez d'abord la remplir");
+    }
+  }
+
 //fonction de reset du champ de recherche (empeche les ajouts trop rapide)
 function resetIngbouton(){
     let bouton = document.getElementById("ajout_ing_bouton");
     bouton.value = undefined;
-    //chercher a faire plus propre
+
 }
 
 //fonction de reset du champ de recherche (empeche les ajouts trop rapide)
 function resetTagbouton(){
     TagSelectionee.value = null;
-    //chercher a faire plus propre
+
 }

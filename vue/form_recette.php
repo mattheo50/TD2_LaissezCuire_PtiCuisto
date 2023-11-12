@@ -3,7 +3,7 @@
 ?>   
 
     <div class="container">
-        <form action="index.php?action=traitementform" method="post">
+        <form action="index.php?action=traitementform" method="post" >
 
             <div class="formRecette">
                 <label>Quelle est la catégorie de votre recette ? </label>

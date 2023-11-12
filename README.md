@@ -6,7 +6,7 @@ Ensuite c'est à vous de jouer pour refaire les recettes qui vous paraissent sav
 
 ## Faite vous votre propre avis !
 
-Vous pouvez tester notre site : [LaissezCuire](https://dev-22013679.users.info.unicaen.fr/TD2_LaissezCuire_PtiCuisto-main/)
+Vous pouvez tester notre site : [LaissezCuire](https://dev-22013679.users.info.unicaen.fr/ptitCuisto/index.php)
 
 ## Comment créer une recette :question:
 - Choisissez si  votre  recette est une entrée / un plat /  un dessert

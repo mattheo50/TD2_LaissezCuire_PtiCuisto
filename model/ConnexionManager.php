@@ -3,6 +3,7 @@ require ("connexion.php");
 
 class ConnexionManager extends Connexion{
 
+    /*---------------------------AUTHENTIFICATION---------------------------*/
     //renvoie 0 si l'utilisateur existe pas ou que le mot de passe est faux,
     //1 si il existe, 2 si c'est un admin
     public function getUtilisateur($pseudo, $motDePasse)
@@ -68,5 +69,37 @@ class ConnexionManager extends Connexion{
 		  echo ""; 
 	}
 
+    /*---------------------------INSCRIPTION---------------------------*/
+    //vérifie si l'utilisateur existe ou non, renvoie true s'il existe, false sinon
+    public function existeUilisateur($pseudo) {
+        //se connecte à la base de données
+        $bdd = $this->dbConnect();
+
+        //la requête renvoie 1 si l'utilisateur existe, 0 sinon
+        $req = 'select count(*) as nb from UTILISATEUR where PSEUDO = ? or ADRESSE_MAIL = ?';
+        $sql = $bdd -> prepare($req);
+        $sql -> execute(array($pseudo, $pseudo));
+        $reponse = $sql -> fetch();
+
+        if ($reponse['nb'] == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public function creerUtilisateur($pseudo, $motDePasse, $mail, $prenom, $nom) {
+        //se connecte à la base de données
+        $bdd = $this->dbConnect();
+
+        //récupération du prochain numéro d'utilisateur
+        $max_uti_num = $bdd->query("select max(UTI_NUM)+1 from UTILISATEUR");
+        $uti_num = $max_uti_num->fetch();
+
+        //insertion d'un utilisateur à la base de donnée
+        $req = "INSERT INTO UTILISATEUR(UTI_NUM, TYPE_UTI, PSEUDO, MOT_DE_PASSE, ADRESSE_MAIL, PRENOM, NOM, DATE_INSCRIPTION, STATUT) VALUES (?, ?, ?, ?, ?, ?, ?,sysdate() ,?)";
+        $insert = $bdd->prepare($req);
+        $insert->execute(array($uti_num[0], 1, $pseudo, password_hash($motDePasse, PASSWORD_DEFAULT), $mail, $prenom, $nom, 1) );
+
+    }
 
 }

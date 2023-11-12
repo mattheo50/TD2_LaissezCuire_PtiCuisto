@@ -24,6 +24,18 @@ a {
     color: black;    
 }
 
+button, input[type=submit] {
+    background-color: #2a3990; /* Green */
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-family: "Pacifico", cursive;
+    font-size: 0.5em;
+}
+
 #logo {
     height: 90%;
     margin: min(5px, 0.5vh);
@@ -288,3 +300,44 @@ footer {
     color: white;
     border: 2px solid black;
 }
+
+
+/* AUTHENTIFCATION / INSCRIPTION */
+.authBox {
+    display: flex;
+    justify-content: center;
+}
+
+.authForm {
+    display: grid;
+    display: inline-grid;
+    row-gap: 20px;
+    column-gap: 5px;
+}
+
+#authentificationDiv {
+    margin-top: 10%;
+    margin-left: 75%;
+}
+
+#auth_1_1 {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#auth_1_2 {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+#authButton {
+    grid-column: 1 / 3;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+
+
+
+
+

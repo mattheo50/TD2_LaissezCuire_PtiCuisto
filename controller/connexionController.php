@@ -4,9 +4,15 @@
 class ConnexionController{
 
 
-    public function afficheContenu(){
+    public function afficheConnexion(){
 
         require("traitement/traitement_authentification.php");
+
+    }
+
+    public function afficheInscription(){
+
+        require("traitement/traitement_inscription.php");
 
     }
 }

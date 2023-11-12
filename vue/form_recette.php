@@ -4,7 +4,6 @@
 
     <div class="container">
         <form action='index.php?action=traitementform<?php if(isset($recette)){echo "&rec_num=".$recette['REC_NUM'];}?>' method='post'>
-
             <div class="formRecette">
                 <label>Quelle est la catégorie de votre recette ? </label>
                 <select name="categorie" id="categorie_recette_form_recette" required="required">

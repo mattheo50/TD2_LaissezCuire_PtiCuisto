@@ -5,7 +5,11 @@
             <select class='selectionSelect' id='dropdownCategorie' name='cat_num'>
                 <?php
                     while ($categorie = $categories->fetch()) {
-                        echo "<option value=".$categorie['cat_num'].">".$categorie['intitule_cat']."</option>";
+                        echo "<option value=".$categorie['cat_num'];
+                        if ($categorie['cat_num'] == $cat_num) {
+                            echo ' selected';
+                        }
+                        echo ">".$categorie['intitule_cat']."</option>";
                     }
                 ?>
             </select>

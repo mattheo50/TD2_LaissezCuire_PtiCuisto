@@ -5,7 +5,11 @@
             <select class='selectionSelect' id='dropdownIngredients' name='ing_num'>
                 <?php
                     while ($ingredient = $ingredients->fetch()) {
-                        echo "<option value=".$ingredient['ing_num'].">".$ingredient['intitule_ing']."</option>";
+                        echo "<option value=".$ingredient['ing_num'];
+                        if ($ingredient['ing_num'] == $ingredientSelectionne) {
+                            echo ' selected';
+                        }
+                        echo ">".$ingredient['intitule_ing']."</option>";
                     }
                 ?>
             </select>

@@ -10,9 +10,9 @@
     <body>
         <footer>
             <div id="socialLinks">
-                <em class="fa-xl fa-brands fa-facebook"></em>
-                <em class="fa-xl fa-brands fa-twitter"></em>
-                <em class="fa-xl fa-brands fa-linkedin"></em>
+                <a href='https://www.facebook.com'><em class="fa-xl fa-brands fa-facebook"></em></a>
+                <a href='https://www.twitter.com'><em class="fa-xl fa-brands fa-twitter"></em></a>
+                <a href='https://www.linkedin.com'><em class="fa-xl fa-brands fa-linkedin"></em></a>
             </div>
         </footer>
     </body>

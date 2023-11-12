@@ -3,6 +3,7 @@
         <?php
         $data = $recette->fetch();
         echo "<div id='containerTitre'>
+              <img src='".$data['IMAGE']."' alt='Image recette'>
               <div id='titreRecipe'>
               <h2>".$data['TITRE']."</h2>
               <h3>".$data['INTITULE_CAT']."</h3>";
@@ -11,7 +12,6 @@
         }
         echo "<h4>".$data['RESUME']."</h4>
               </div>
-              <img src='".$data['IMAGE']."' alt='Image recette'>
               </div>
               <p>".$data['CONTENU']."</p>";
         if (isset($_SESSION['admin'])) {

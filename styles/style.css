@@ -4,7 +4,7 @@
 }
 
 body {
-    font-size: 2em;
+    font-size: 4vh;
     font-family: "Pacifico", cursive;
     min-height: 100vh;
     display: flex;
@@ -55,7 +55,7 @@ a {
     align-items: center;
     text-decoration: none;
     color: white;
-    padding: 0 20px;
+    padding: 0 1vw;
     font-size: min(1em, 5vh);
 }
 
@@ -90,6 +90,7 @@ section {
 }
 
 #alignSect {
+    width: 95vw;
     margin: min(30px, 3vh);
     border: none;
     display: grid;
@@ -157,12 +158,12 @@ footer {
 #socialLinks {
     background-color: white;
     height: 30%;
-    width: 10%;
+    width: 20%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
 
-#socialLinks em {
+#socialLinks a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -238,12 +239,11 @@ footer {
 }
 
 #containerTitre > img {
-    height: 500px;
-}
-
-#containerTitre {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    width: auto;
+    height: auto;
+    max-width: 30vw;
+    max-height: 30vw;
+    float: right;
 }
 
 #titreRecipe {
@@ -350,6 +350,24 @@ footer {
 #imgLastRecipe {
     width: auto;
     height: auto;
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+#burger {
+    display: none;
+}
+
+#formEdito {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+}
+
+@media screen and (max-width: 600px) {
+    #alignSect {
+        grid-template-columns: 1fr;
+    }
 }

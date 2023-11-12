@@ -38,6 +38,12 @@ try{
             $blog = new CreerRecetteController();
             $blog->afficheContenu();
         }
+        else if($_GET['action'] == 'modifRecette'){
+            require("controller/creerRecetteController.php");
+            $blog = new CreerRecetteController();
+            $rec_num = $_GET['rec_num'];
+            $blog->afficheContenuModif($rec_num);
+        }
         else if($_GET['action'] == 'traitementform'){
             require('controller/creerRecetteController.php');
             $categorie = strip_tags($_POST["categorie"]);
@@ -49,7 +55,12 @@ try{
             $image = strip_tags($_POST['image']);
             $uti_num = $_SESSION['uti_num'];
             $creerRecetteController = new CreerRecetteController();
-            $creerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
+            if (isset($_GET['rec_num'])) {
+                $rec_num = $_GET['rec_num'];
+                $creerRecetteController->modifier_recette($rec_num, $uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
+            } else {
+                $creerRecetteController->inserer_recette($uti_num,$ingredientPost, $tags, $categorie,$titre, $contenu, $resume, $image);
+            }
             echo '<p>Nous allons éxaminer votre demande, vous allez être redirigé automatiquement vers l'."'".'accueil</p>';
             echo '<meta http-equiv="refresh" content="5;URL=index.php">';
         }

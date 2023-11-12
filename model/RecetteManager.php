@@ -75,9 +75,8 @@ class RecetteManager extends Connexion{
         $sql -> execute();
         return $sql;
     }
-      
-    public function ajoutRecette($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image){
-
+    
+    public function formTest($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image){
         // Vérifier si c'est une URL valide
         if (filter_var($image, FILTER_VALIDATE_URL) === false) {
             $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
@@ -126,9 +125,15 @@ class RecetteManager extends Connexion{
                 array_push($ing_num,$ingredient['ING_NUM']);
             }   
         }
+        return [$rec_num, $ing_num, $tag_num];
+    }
 
-
-
+    function ajoutRecette($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image) {
+        $info_rec = $this->formTest($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image);
+        $rec_num = $info_rec[0];
+        $ing_num = $info_rec[1];
+        $tag_num = $info_rec[2];
+        $bdd = $this->dbConnect();
         // Insertion dans recette
         $insert_recette = "INSERT INTO RECETTE(REC_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION,DATE_MODIFICATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, sysdate(),sysdate() ,?)";
         $statement = $bdd->prepare($insert_recette);
@@ -148,7 +153,41 @@ class RecetteManager extends Connexion{
             $statement = $bdd->prepare($insert_appartenir);
             $statement->execute([$rec_num[0],$tag_num[$i]]);
         }
+    }
 
+    function modifRecette($rec_num, $uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image) {
+        $info_rec = $this->formTest($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image);
+        $ing_num = $info_rec[1];
+        $tag_num = $info_rec[2];
+        $bdd = $this->dbConnect();
+        // Insertion dans recette
+        $insert_recette = "UPDATE RECETTE SET CAT_NUM = ?, UTI_NUM = ?, TITRE = ?, CONTENU = ?, RESUME = ?, DATE_CREATION = (SELECT DATE_CREATION FROM RECETTE WHERE REC_NUM = ?), DATE_MODIFICATION = sysdate(), IMAGE = ?, VERIFIE = 0 WHERE REC_NUM = ?";
+        $statement = $bdd->prepare($insert_recette);
+        $statement->execute([$categorie, $uti_num, $titre, $contenu, $resume, $rec_num, $image, $rec_num]);
+
+        //Suppression de tous les ingrédients de la recette
+        $delete_composer = "DELETE FROM COMPOSER WHERE REC_NUM = ?";
+        $statement = $bdd->prepare($delete_composer);
+        $statement->execute([$rec_num]);
+        //Serie d'insertions dans la table composer
+        for($i=1;$i < count($ing_num); $i++){
+            //j'insere le numéro d'ingrédient à la recette dans la table composer/*
+            $insert_composer = "INSERT INTO COMPOSER(REC_NUM, ING_NUM) VALUES (?, ?)";
+            $statement = $bdd->prepare($insert_composer);
+            $statement->execute([$rec_num,$ing_num[$i]]);
+        } 
+
+        //Suppression de tous les tags de la recette
+        $delete_composer = "DELETE FROM APPARTENIR WHERE REC_NUM = ?";
+        $statement = $bdd->prepare($delete_composer);
+        $statement->execute([$rec_num]);
+        //série d'insertion dans la table appartenir
+        for($i=0;$i < count($tag_num); $i++){
+            //j'insere le numéro d'ingrédient à la recette dans la table composer/*
+            $insert_appartenir = "INSERT INTO APPARTENIR(REC_NUM, TAG_NUM) VALUES (?, ?)";
+            $statement = $bdd->prepare($insert_appartenir);
+            $statement->execute([$rec_num,$tag_num[$i]]);
+        }
     }
 
     function supprimerRecette($rec_num) {

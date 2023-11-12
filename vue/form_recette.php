@@ -1,17 +1,17 @@
 <?php ob_start();
- $title = 'NouvelleRecette'; 
+ $title = 'NouvelleRecette';
 ?>   
 
     <div class="container">
-        <form action="index.php?action=traitementform" method="post">
+        <form action='index.php?action=traitementform<?php if(isset($recette)){echo "&rec_num=".$recette['REC_NUM'];}?>' method='post'>
 
             <div class="formRecette">
                 <label>Quelle est la catégorie de votre recette ? </label>
                 <select name="categorie" id="categorie_recette_form_recette" required="required">
                     <option value="">--Choississez une catégorie--</option>
-                    <option value="0">Entrée</option>
-                    <option value="1">Plat</option>
-                    <option value="2">Dessert</option>
+                    <option value="0" <?php if(isset($recette) && $recette['CAT_NUM'] == 0){echo "selected";}?>>Entrée</option>
+                    <option value="1" <?php if(isset($recette) && $recette['CAT_NUM'] == 1){echo "selected";}?>>Plat</option>
+                    <option value="2" <?php if(isset($recette) && $recette['CAT_NUM'] == 2){echo "selected";}?>>Dessert</option>
                 </select><br>
             </div>
             
@@ -34,17 +34,17 @@
 
             <div class="formRecette">
                 <label>Entrez votre titre: </label>
-                <input name="titre" type="text" placeholder="Titre" required="required"></input><br>
+                <input name="titre" type="text" placeholder="Titre" required="required" <?php if(isset($recette)){echo "value='".$recette['TITRE']."'";}?>></input><br>
             </div>
 
             <div class="formRecette">
                 <label>Entrez la recette complète: </label><br>
-                <textarea name="contenu" type="text" rows="10" cols="100" placeholder="recette" required="required"></textarea><br>
-                </div>
+                <textarea name="contenu" type="text" rows="10" cols="100" placeholder="recette" required="required"><?php if(isset($recette)){echo $recette['CONTENU'];}?></textarea><br>
+            </div>
 
-                <div class="formRecette">
+            <div class="formRecette">
                 <label>Saisissez un court résumé de la recette: </label><br>
-                <textarea name="resume" type="text" placeholder="résumé" rows="4" cols="30" required="required"></textarea><br>
+                <textarea name="resume" type="text" placeholder="résumé" rows="4" cols="30" required="required"><?php if(isset($recette)){echo $recette['RESUME'];}?></textarea><br>
             </div>
 
             <div class="formRecette">
@@ -60,7 +60,7 @@
 
             <div class="formRecette">
                 <label>Saisissez un lien d'image: </label>
-                <input name="image" type="text" placeholder="Liens"></input><br>
+                <input name="image" type="text" placeholder="Lien" <?php if(isset($recette)){echo "value='".$recette['IMAGE']."'";}?>></input><br>
                 <input type="submit" value="Send Request"/>
             </div>
         </form>

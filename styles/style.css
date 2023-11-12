@@ -217,6 +217,9 @@ footer {
     border: none;
     text-align: justify;
     padding: 30px;
+}
+
+#recipePage p {
     white-space: pre-wrap;
 }
 
@@ -256,11 +259,22 @@ footer {
     border: 2px solid black;
 }
 
-#supprButton {
-    padding: 5px;
-    background-color: red;
+#editDiv {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    gap: 3vw;
+}
+
+.editButton {
+    padding: 10px;
     font-family: inherit;
     font-size: inherit;
-    color: white;
     border: 2px solid black;
+    border-radius: 100vh;
+}
+
+#supprButton {
+    background-color: red;
+    color: white;
 }

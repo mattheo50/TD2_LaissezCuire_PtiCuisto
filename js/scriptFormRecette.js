@@ -1,5 +1,6 @@
 //déclarations de variables
 let recherche;
+let recherchetag;
 let ListeIngredientAjouteTab = [];
 let ListeTagAjoutee = [];
 const ajoutIngredient = document.getElementById("ajout_ing_bouton");
@@ -13,13 +14,33 @@ let premierIngredient = true;
 
 // fonctions d'autocomplétion du champ de recherche d'ingrédients
 $(document).ready(function() {
+    $("#tags_recette_form_recette").on("input", function() {
+        recherchetag = document.getElementById("tags_recette_form_recette").value;
+        var query = $(this).val();
+
+        if (query !== "") {
+            $.ajax({
+                url: "model/autocompleteTag.php",
+                method: "POST",
+                data: { query: query },
+                success: function(data) {
+                    var datalist = $("#ListTag");
+                    datalist.empty();
+                    datalist.html(data);
+                }
+            });
+        }
+    });
+});
+
+$(document).ready(function() {
     $("#ingredient").on("input", function() {
         recherche = document.getElementById("ingredient").value;
         var query = $(this).val();
 
         if (query !== "") {
             $.ajax({
-                url: "model/autocomplete.php",
+                url: "model/autocompleteIngredient.php",
                 method: "POST",
                 data: { query: query },
                 success: function(data) {
@@ -48,16 +69,16 @@ ajoutIngredient.addEventListener("click",(event)=>{
 });
 
 ajoutTag.addEventListener("click",(event)=>{
-     if(ListeTagAjoutee.indexOf(TagSelectionee.value) < 0){
+     if(ListeTagAjoutee.indexOf(recherchetag) < 0){
         if(premierTag == true){
-            document.getElementById("ListeTagAjoute").innerHTML += TagSelectionee.options[TagSelectionee.selectedIndex].text;
-            document.getElementById("TagPost").value += TagSelectionee.value;
+            document.getElementById("ListeTagAjoute").innerHTML += recherchetag;
+            document.getElementById("TagPost").value += recherchetag;
             premierTag = false;
         }else{
-            document.getElementById("ListeTagAjoute").innerHTML += (", "+TagSelectionee.options[TagSelectionee.selectedIndex].text);
-            document.getElementById("TagPost").value += "/"+TagSelectionee.value;
+            document.getElementById("ListeTagAjoute").innerHTML += (", "+recherchetag);
+            document.getElementById("TagPost").value += "/"+recherchetag;
         }
-        ListeTagAjoutee.push(TagSelectionee.value);
+        ListeTagAjoutee.push(recherchetag);
      }
 });
 

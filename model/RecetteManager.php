@@ -97,13 +97,9 @@ class RecetteManager extends Connexion{
         $max_rec_num = $bdd->query("select max(REC_NUM)+1 from RECETTE");
         $rec_num = $max_rec_num->fetch();
 
-        //stockage dans un tableau des tags
-        $tag_num = explode("/",$tags);
-
 
         //verification de la validité des ingrédients
         $ingredientPost = explode("/",$ingredientPost);
-        $erreur = false;
         $ing_num[] = array();
         for($i=0;$i < count($ingredientPost); $i++){
             // je vais chercher le numéro de l'ingrédient avec le nom entré
@@ -123,6 +119,29 @@ class RecetteManager extends Connexion{
                 array_push($ing_num,$ingredient);
             }else{
                 array_push($ing_num,$ingredient['ING_NUM']);
+            }   
+        }
+        //verification de la validité des tags
+        $tagPost = explode("/",$tags);
+        $tag_num[] = array();
+        for($i=0;$i < count($tagPost); $i++){
+            // je vais chercher le numéro de l'ingrédient avec le nom entré
+            //en vérifiant si l'ingrédient existe
+            $tag = null;
+            $select_tag_num = "SELECT TAG_NUM from TAGS WHERE INTITULE_TAG = ?";
+            $statement = $bdd->prepare($select_tag_num);
+            $statement->execute([$tagPost[$i]]);
+            $tag = $statement->fetch();
+            if($tag == false){
+                $max_tag_num = $bdd->query("select max(tag_num)+1 from TAGS");
+                $ing_tag_new = $max_tag_num->fetch();
+                $insert_tag = "INSERT INTO TAGS(TAG_NUM,INTITULE_TAG) VALUES(?,?)";
+                $statement = $bdd->prepare($insert_tag);
+                $statement->execute([$ing_tag_new[0],$tagPost[$i]]);
+                $tag = $ing_tag_new[0];
+                array_push($tag_num,$tag);
+            }else{
+                array_push($tag_num,$tag['TAG_NUM']);
             }   
         }
         return [$rec_num, $ing_num, $tag_num];
@@ -147,7 +166,7 @@ class RecetteManager extends Connexion{
             $statement->execute([$rec_num[0],$ing_num[$i]]);
         } 
         //série d'insertion dans la table appartenir
-        for($i=0;$i < count($tag_num); $i++){
+        for($i=1;$i < count($tag_num); $i++){
             //j'insere le numéro d'ingrédient à la recette dans la table composer/*
             $insert_appartenir = "INSERT INTO APPARTENIR(REC_NUM, TAG_NUM) VALUES (?, ?)";
             $statement = $bdd->prepare($insert_appartenir);

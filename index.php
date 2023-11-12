@@ -7,8 +7,12 @@ try{
         if ($_GET['action']=='connexion') {
             require("controller/connexionController.php");
             $connexion = new ConnexionController();
-            $connexion->afficheContenu();
-        } else if ($_GET['action'] == 'nosRecettes') {
+            $connexion->afficheConnexion();
+        } else if ($_GET['action']== 'inscription') {
+            require("controller/connexionController.php");
+            $connexion = new ConnexionController();
+            $connexion->afficheInscription();
+        }else if ($_GET['action'] == 'nosRecettes') {
             require("controller/listeController.php");
             $blog = new ListeController();
             $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 0;

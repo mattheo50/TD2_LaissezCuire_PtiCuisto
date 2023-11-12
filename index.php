@@ -59,6 +59,13 @@ try{
             echo 'deconnexion...';
             echo '<script>document.location="index.php"</script>';  
         }
+        else if($_GET['action'] == 'suppr') {
+            require_once("controller/accueilController.php");
+            $recetteManager = new RecetteManager();
+            $recetteManager->supprimerRecette($_GET['rec_num']);
+            $blog = new AccueilController();
+            $blog->afficheContenu();
+        }
     }
     else{       
         require_once("controller/accueilController.php");

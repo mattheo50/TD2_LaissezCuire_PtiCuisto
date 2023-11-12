@@ -254,3 +254,12 @@ footer {
     font-size: inherit;
     border: 2px solid black;
 }
+
+#supprButton {
+    padding: 5px;
+    background-color: red;
+    font-family: inherit;
+    font-size: inherit;
+    color: white;
+    border: 2px solid black;
+}

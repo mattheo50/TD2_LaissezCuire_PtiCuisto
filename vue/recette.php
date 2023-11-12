@@ -14,7 +14,21 @@
               </div>
               </div>
               <p>".$data['CONTENU']."</p>";
+        
+        if (isset($_SESSION['uti_num']) && isset($_SESSION['admin'])) {
+            if ($data['UTI_NUM'] == (int)$_SESSION['uti_num'] || isset($_SESSION['admin'])) {
+                echo "<button id='supprButton' onclick='supprConfirm(".$data['REC_NUM'].")'>Supprimer la recette</button>";
+            }
+        }
         ?>
-    </section>
+        <script>
+            function supprConfirm(rec_num) {
+                let res = confirm('Voulez vous vraiment supprimer cette recette ?');
+                if (res) {
+                    document.location='index.php?action=suppr&rec_num='+rec_num;
+                }
+            }
+        </script>
+    </section>)
 <?php $content = ob_get_clean();
 require("vue/template.php"); ?>

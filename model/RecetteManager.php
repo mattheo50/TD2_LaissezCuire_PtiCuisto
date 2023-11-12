@@ -150,4 +150,20 @@ class RecetteManager extends Connexion{
         }
 
     }
+
+    function supprimerRecette($rec_num) {
+        $bdd = $this->dbConnect();
+        $reqs = ["delete from RECETTE
+                  where rec_num=:rec_num",
+                 "delete from APPARTENIR
+                  where rec_num=:rec_num",
+                 "delete from COMPOSER
+                  where rec_num=:rec_num"];
+        
+        foreach ($reqs as $req) {
+            $sql = $bdd -> prepare($req);
+            $sql->bindParam(':rec_num', $rec_num, PDO::PARAM_INT);
+            $sql->execute();
+        }
+    }
 }

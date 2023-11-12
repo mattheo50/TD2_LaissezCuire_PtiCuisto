@@ -11,9 +11,12 @@ class AccueilController{
     }
 
     public function activerModifEdito(){
-        if($_SESSION['admin'] == true){
-            echo("<button onclick='versModifier()'>Modifier</button>");
-        }
+        if(isset($_SESSION['admin'])){
+                if(boolval($_SESSION['admin'])){
+                    echo $_SESSION['admin'];
+                    echo ("<button onclick='versModifier()'>Modifier</button>");
+                }
+            }
     }
 
     public function getEdito(){

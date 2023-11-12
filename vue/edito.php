@@ -12,11 +12,11 @@ $controller = new accueilController();?>
                     <?php
                     while($data = $recettes->fetch()){
                     ?> 
-                            <div class="lastRecipe">
+                        <a class="lastRecipe" href='index.php?action=recette&rec_num="<?php echo $data['rec_num'] ?>'>
                                 <img src="<?php echo $data['image']?>" alt="Petit Cuistot">
                                 <h4><?php echo $data['titre'] ?></h4>
                                 <p><?php echo $data['resume']?></p>
-                            </div>
+                        </a>
                         <?php }?>
                     </div>
                 </section>

@@ -15,7 +15,7 @@
               </div>
               <p>".$data['CONTENU']."</p>";
         if (isset($_SESSION['admin'])) {
-            if($_SESSION['admin']){
+            if(boolval($_SESSION['admin'])){
                 if(isset($_GET['act'])){
                     echo "<button id='validerButton' onclick='validerRecette(".$data['REC_NUM'].")'>Valider</button>";
                 }

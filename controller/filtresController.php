@@ -7,6 +7,7 @@ class FiltresController{
     public function afficheContenuIngredients($ing_num, $offset){
         $filtresManager = new FiltresManager();
         $recetteManager = new RecetteManager();
+        $ingredientSelectionne = $ing_num;
         
         if ($ing_num != -1) {
             $recettes = $filtresManager->getIngredientRecettes($ing_num, $offset)->fetchAll();
@@ -26,6 +27,7 @@ class FiltresController{
     public function afficheContenuCategorie($cat_num, $offset){
         $filtresManager = new FiltresManager();
         $recetteManager = new RecetteManager();
+        $categorieSelectionnee = $cat_num;
         
         if ($cat_num != -1) {
             $recettes = $filtresManager->getCategorieRecettes($cat_num, $offset)->fetchAll();
@@ -45,6 +47,7 @@ class FiltresController{
     public function afficheContenuTitre($recherche, $offset){
         $filtresManager = new FiltresManager();
         $recetteManager = new RecetteManager();
+        $rechercheSelectionnee = $recherche;
         
         $recettes = $filtresManager->getTitreRecettes($recherche, $offset)->fetchAll();
         $count = $filtresManager->getSizeRecherche($recherche);

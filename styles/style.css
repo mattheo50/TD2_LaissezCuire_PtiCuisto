@@ -278,3 +278,13 @@ footer {
     background-color: red;
     color: white;
 }
+
+#validerButton{
+    padding: 5px;
+    margin: 20px;
+    background-color: greenyellow;
+    font-family: inherit;
+    font-size: inherit;
+    color: white;
+    border: 2px solid black;
+}

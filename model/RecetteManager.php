@@ -3,7 +3,7 @@ require_once ("connexion.php");
 class RecetteManager extends Connexion{
     public function getDernieresRecettes() {
         $bdd = $this->dbConnect();
-        $req = "select titre, resume, image from RECETTE
+        $req = "select rec_num, titre, resume, image from RECETTE
                 where verifie = 1
                 order by date_creation desc
                 limit 3";
@@ -205,4 +205,29 @@ class RecetteManager extends Connexion{
             $sql->execute();
         }
     }
+
+    public function getRecetteAVerifier(){
+        $bdd = $this->dbConnect();
+        $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE join CATEGORIE using(cat_num) where verifie=0 order by date_modification";
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql;
+    }
+
+    public function getNombreRecceteAVerifier(){
+        $bdd = $this->dbConnect();
+        $req = "select count(*) from RECETTE where verifie=0";
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+        return $sql->fetch()[0];
+
+    }
+
+    public function validationRecette($rec_num){
+        $bdd = $this->dbConnect();
+        $req = "update RECETTE SET VERIFIE=1 where REC_NUM = ".$rec_num;
+        $sql = $bdd -> prepare($req);
+        $sql -> execute();
+    }
+    
 }

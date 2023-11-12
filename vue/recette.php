@@ -14,7 +14,13 @@
               <img src='".$data['IMAGE']."' alt='Image recette'>
               </div>
               <p>".$data['CONTENU']."</p>";
-        
+        if (isset($_SESSION['admin'])) {
+            if(boolval($_SESSION['admin'])){
+                if(isset($_GET['act'])){
+                    echo "<button id='validerButton' onclick='validerRecette(".$data['REC_NUM'].")'>Valider</button>";
+                }
+            }
+        }
         if (isset($_SESSION['uti_num']) && isset($_SESSION['admin'])) {
             if ($data['UTI_NUM'] == (int)$_SESSION['uti_num'] || isset($_SESSION['admin'])) {
                 echo "<div id='editDiv'>
@@ -25,6 +31,9 @@
         }
         ?>
         <script>
+            function validerRecette(rec_num){
+                document.location='index.php?action=validerLaRecette&rec_num='+rec_num;
+            }
             function supprConfirm(rec_num) {
                 let res = confirm('Voulez vous vraiment supprimer cette recette ?');
                 if (res) {

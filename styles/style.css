@@ -217,6 +217,7 @@ footer {
     border: none;
     text-align: justify;
     padding: 30px;
+    white-space: pre-wrap;
 }
 
 #containerTitre > img {

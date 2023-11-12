@@ -58,7 +58,6 @@ ajoutTag.addEventListener("click",(event)=>{
             document.getElementById("TagPost").value += "/"+TagSelectionee.value;
         }
         ListeTagAjoutee.push(TagSelectionee.value);
-        console.log(TagSelectionee.value);
      }
 });
 

@@ -23,7 +23,13 @@
                         echo ('<option value="'.$data["TAG_NUM"].'">'.$data["INTITULE_TAG"].'</option>');
                     }
                 ?>
-                </select><br>
+                </select>
+                <button id="ajout_tag_bouton" type="button" >+</button>
+                <datalist id="Listingredient"></datalist><br>
+
+                <label>Tags :</label>
+                <label id="ListeTagAjoute"></label><br>
+                <input type="hidden" id="TagPost" name="TagPost" required="required">
             </div>
 
             <div class="formRecette">
@@ -44,7 +50,7 @@
             <div class="formRecette">
                 <label for="Séléctionnez les ingrédients de la recette:">Séléctionnez les ingrédients de la recette: </label>
                 <input type="search" id="ingredient" name="ingredient" list="Listingredient" autocomplete="off" >
-                <button id="ajout_ing_bouton" type="button" onclick="resetbouton()" >+</button>
+                <button id="ajout_ing_bouton" type="button" onclick="resetIngbouton()" >+</button>
                 <datalist id="Listingredient"></datalist><br>
 
                 <label>Ingredients :</label>

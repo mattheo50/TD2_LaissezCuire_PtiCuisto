@@ -1,7 +1,11 @@
 //déclarations de variables
 let recherche;
 let ListeIngredientAjouteTab = [];
+let ListeTagAjoutee = [];
 const ajoutIngredient = document.getElementById("ajout_ing_bouton");
+const ajoutTag = document.getElementById("ajout_tag_bouton");
+const TagSelectionee = document.getElementById("tags_recette_form_recette");
+let premierTag = true;
 let premierIngredient = true;
 
 // fonctions d'autocomplétion du champ de recherche d'ingrédients
@@ -37,13 +41,33 @@ ajoutIngredient.addEventListener("click",(event)=>{
             document.getElementById("ingredientPost").value += "/"+recherche;
         }
         ListeIngredientAjouteTab.push(recherche);
-        console.log(document.getElementById("ingredientPost").value);
     }
 });
 
+ajoutTag.addEventListener("click",(event)=>{
+     if(ListeTagAjoutee.indexOf(TagSelectionee.value) < 0){
+        if(premierTag == true){
+            document.getElementById("ListeTagAjoute").innerHTML += TagSelectionee.options[TagSelectionee.selectedIndex].text;
+            document.getElementById("TagPost").value += TagSelectionee.value;
+            premierTag = false;
+        }else{
+            document.getElementById("ListeTagAjoute").innerHTML += (", "+TagSelectionee.options[TagSelectionee.selectedIndex].text);
+            document.getElementById("TagPost").value += "/"+TagSelectionee.value;
+        }
+        ListeTagAjoutee.push(TagSelectionee.value);
+        console.log(TagSelectionee.value);
+     }
+});
+
 //fonction de reset du champ de recherche (empeche les ajouts trop rapide)
-function resetbouton(){
-    var bouton = document.getElementById("ajout_ing_bouton");
+function resetIngbouton(){
+    let bouton = document.getElementById("ajout_ing_bouton");
     bouton.value = undefined;
+    //chercher a faire plus propre
+}
+
+//fonction de reset du champ de recherche (empeche les ajouts trop rapide)
+function resetTagbouton(){
+    TagSelectionee.value = null;
     //chercher a faire plus propre
 }

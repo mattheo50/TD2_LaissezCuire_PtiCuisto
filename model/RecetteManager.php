@@ -3,7 +3,10 @@ require_once ("connexion.php");
 class RecetteManager extends Connexion{
     public function getDernieresRecettes() {
         $bdd = $this->dbConnect();
-        $req = "select titre, resume, image from RECETTE where verifie = 1 order by date_creation desc limit 3";
+        $req = "select titre, resume, image from RECETTE
+                where verifie = 1
+                order by date_creation desc
+                limit 3";
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql;
@@ -11,23 +14,32 @@ class RecetteManager extends Connexion{
 
     public function getOffsetRecettes($offset) {
         $bdd = $this->dbConnect();
-        $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE join CATEGORIE using(cat_num) where verifie=1 limit ".($offset+10);
-        $sql = $bdd -> prepare($req);
-        $sql -> execute();
+        $req = "select rec_num, titre, image, intitule_cat, resume from RECETTE
+                join CATEGORIE using(cat_num)
+                where verifie=1
+                limit :offset";
+        $sql = $bdd->prepare($req);
+        $trueoffset = $offset + 10;
+        $sql->bindParam(':offset', $trueoffset, PDO::PARAM_INT);
+        $sql->execute();
         return $sql;
     }
 
     public function getUneRecette($recetteID) {
         $bdd = $this->dbConnect();
-        $req = "select * from RECETTE join CATEGORIE using(cat_num) where rec_num=".$recetteID;
+        $req = "select * from RECETTE
+                join CATEGORIE using(cat_num)
+                where rec_num=:recetteID";
         $sql = $bdd -> prepare($req);
+        $sql->bindParam(':recetteID', $recetteID, PDO::PARAM_INT);
         $sql -> execute();
         return $sql;
     }
 
     public function getSizeRecettes() {
         $bdd = $this->dbConnect();
-        $req = "select count(*) from RECETTE where verifie=1";
+        $req = "select count(*) from RECETTE
+                where verifie=1";
         $sql = $bdd -> prepare($req);
         $sql -> execute();
         return $sql->fetch()[0];
@@ -36,8 +48,11 @@ class RecetteManager extends Connexion{
 
     public function getIngredientsRecette($recetteID) {
         $bdd = $this->dbConnect();
-        $req = "select intitule_ing from COMPOSER join INGREDIENT using(ing_num) where rec_num=".$recetteID;
+        $req = "select intitule_ing from COMPOSER
+                join INGREDIENT using(ing_num)
+                where rec_num=:recetteID";
         $sql = $bdd -> prepare($req);
+        $sql->bindParam(':recetteID', $recetteID, PDO::PARAM_INT);
         $sql -> execute();
         return $sql;
     }
@@ -52,17 +67,40 @@ class RecetteManager extends Connexion{
 
     public function getTagsRecette($recetteID) {
         $bdd = $this->dbConnect();
-        $req = "select intitule_tag from APPARTENIR join TAGS using(tag_num) where rec_num=".$recetteID;
+        $req = "select intitule_tag from APPARTENIR
+                join TAGS using(tag_num)
+                where rec_num=:recetteID";
         $sql = $bdd -> prepare($req);
+        $sql->bindParam(':recetteID', $recetteID, PDO::PARAM_INT);
         $sql -> execute();
         return $sql;
     }
       
     public function ajoutRecette($uti_num,$ingredientPost,$tags,$categorie, $titre, $contenu, $resume, $image){
+
+        // Vérifier si c'est une URL valide
+        if (filter_var($image, FILTER_VALIDATE_URL) === false) {
+            $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
+        } else {
+            // Vérifier si l'extension du fichier correspond à une extension d'image
+            $extensions_autorises = array("jpg", "jpeg", "png", "gif");
+            $urlElements = parse_url($image, PHP_URL_PATH);
+            $info_url = pathinfo($urlElements, PATHINFO_EXTENSION);
+        
+            if (!(in_array(strtolower($info_url), $extensions_autorises))) {
+                $image = "https://caer.univ-amu.fr/wp-content/uploads/default-placeholder.png";
+            }
+        }
+
+
         $bdd = $this->dbConnect();
         //récupération du numéro du prochain numero de recette
         $max_rec_num = $bdd->query("select max(REC_NUM)+1 from RECETTE");
         $rec_num = $max_rec_num->fetch();
+
+        //stockage dans un tableau des tags
+        $tag_num = explode("/",$tags);
+
 
         //verification de la validité des ingrédients
         $ingredientPost = explode("/",$ingredientPost);
@@ -91,8 +129,8 @@ class RecetteManager extends Connexion{
 
 
 
-        // Insertion dans recette    !!!!!!!!!Plus de TAG
-        $insert_recette = "INSERT INTO RECETTE(REC_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, sysdate(), ?)";
+        // Insertion dans recette
+        $insert_recette = "INSERT INTO RECETTE(REC_NUM, CAT_NUM, UTI_NUM, TITRE, CONTENU, RESUME, DATE_CREATION,DATE_MODIFICATION, IMAGE) VALUES (?, ?, ?, ?, ?, ?, sysdate(),sysdate() ,?)";
         $statement = $bdd->prepare($insert_recette);
         $statement->execute([$rec_num[0], $categorie, $uti_num, $titre, $contenu, $resume, $image]);
 
@@ -103,6 +141,30 @@ class RecetteManager extends Connexion{
             $statement = $bdd->prepare($insert_composer);
             $statement->execute([$rec_num[0],$ing_num[$i]]);
         } 
+        //série d'insertion dans la table appartenir
+        for($i=0;$i < count($tag_num); $i++){
+            //j'insere le numéro d'ingrédient à la recette dans la table composer/*
+            $insert_appartenir = "INSERT INTO APPARTENIR(REC_NUM, TAG_NUM) VALUES (?, ?)";
+            $statement = $bdd->prepare($insert_appartenir);
+            $statement->execute([$rec_num[0],$tag_num[$i]]);
+        }
+
+    }
+
+    function supprimerRecette($rec_num) {
+        $bdd = $this->dbConnect();
+        $reqs = ["delete from RECETTE
+                  where rec_num=:rec_num",
+                 "delete from APPARTENIR
+                  where rec_num=:rec_num",
+                 "delete from COMPOSER
+                  where rec_num=:rec_num"];
+        
+        foreach ($reqs as $req) {
+            $sql = $bdd -> prepare($req);
+            $sql->bindParam(':rec_num', $rec_num, PDO::PARAM_INT);
+            $sql->execute();
+        }
     }
 
     public function getRecetteAVerifier(){

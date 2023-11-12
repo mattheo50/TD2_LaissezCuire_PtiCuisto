@@ -3,17 +3,17 @@ require ("connexion.php");
 
 class ConnexionManager extends Connexion{
 
-    //renvoie 0 si l'utilisateur existe pas, 1 si il existe, 2 si c'est un admin
+    //renvoie 0 si l'utilisateur existe pas ou que le mot de passe est faux,
+    //1 si il existe, 2 si c'est un admin
     public function getUtilisateur($pseudo, $motDePasse)
     {
+        //se connecte à la base de données
         $bdd = $this->dbConnect();
-        //la requête renvoie 1 si l'utilisateur existe, 0 sinon
-        $req = 'select count(*) as nb from UTILISATEUR where (PSEUDO = ? and MOT_DE_PASSE = ? )
-        or (ADRESSE_MAIL = ? and MOT_DE_PASSE = ? )';
-        $sql = $bdd -> prepare($req);
-        $sql -> execute(array($pseudo, $motDePasse, $pseudo, $motDePasse));
 
-        //récupère le resultat de la requête
+        //la requête renvoie 1 si l'utilisateur existe, 0 sinon
+        $req = 'select count(*) as nb from UTILISATEUR where PSEUDO = ? or ADRESSE_MAIL = ?';
+        $sql = $bdd -> prepare($req);
+        $sql -> execute(array($pseudo, $pseudo));
         $reponse = $sql -> fetch();
 
         //vérifie si l'utilisateur éxiste, renvoie 0 sinon
@@ -21,17 +21,33 @@ class ConnexionManager extends Connexion{
             return 0;
         }
 
-        //récupère le numéro d'uttilisateur
-        $req = 'select UTI_NUM as uti_num from UTILISATEUR where (PSEUDO = ? and MOT_DE_PASSE = ? )
-        or (ADRESSE_MAIL = ? and MOT_DE_PASSE = ? )';
+        //récupère le mot de passe haché de l'utilisateur
+        $req = 'select MOT_DE_PASSE as hashpass from UTILISATEUR where PSEUDO = ? or ADRESSE_MAIL = ?';
         $sql = $bdd -> prepare($req);
-        $sql -> execute(array($pseudo, $motDePasse, $pseudo, $motDePasse));
+        $sql -> execute(array($pseudo, $pseudo));
         $reponse = $sql -> fetch();
-        //place le numéro d'utilisateur dans la variable session uti_num
-        $_SESSION['uti_num'] = $reponse['uti_num'];
 
-        //vérifie si l'utilisateur est l'admin et place la variable session admin à true
-        if ($pseudo == 'admin') {
+        //renvoie 0 en cas de mauvais mot de passe
+        if (!(password_verify($motDePasse, $reponse['hashpass'])) ) {
+            return 0;
+        }
+
+        //Récupère le numéro d'uttilisateur
+        $req = 'select UTI_NUM as uti_num from UTILISATEUR where PSEUDO = ? or ADRESSE_MAIL = ?';
+        $sql = $bdd -> prepare($req);
+        $sql -> execute(array($pseudo, $pseudo));
+        $num = $sql -> fetch();
+        //place le numéro d'utilisateur dans la variable session uti_num
+        $_SESSION['uti_num'] = $num['uti_num'];
+
+        //Récupère le tag utilisateur de l'utilisateur afin de vérifié si c'est un admin
+        $req = 'select TYPE_UTI as type from UTILISATEUR where UTI_NUM = ?';
+        $sql = $bdd -> prepare($req);
+        $sql -> execute(array($_SESSION['uti_num']));
+        $type = $sql -> fetch();
+        
+        //Si l'utilisateur est l'admin, met la variable session admin à true
+        if ($type['type'] == 0) {
             $_SESSION['admin']=true;
             return 2;
         }
@@ -39,7 +55,7 @@ class ConnexionManager extends Connexion{
         return 1;
     }
 
-
+    //code pour remettre à jour les input du formulaire
     public function updateFormText($n)
 	{  
 		if (!empty($_POST[$n]))

@@ -12,8 +12,8 @@ class AccueilController{
 
     public function activerModifEdito(){
         if(isset($_SESSION['admin'])){
-                if(boolval($_SESSION['admin'])){
-                    echo ("<button onclick='versModifier()'>Modifier</button>");
+                if($_SESSION['admin'] == 'true'){
+                    echo ("<button class='editButton' id='modifButton' onclick='versModifier()'>Modifier</button>");
                 }
             }
     }

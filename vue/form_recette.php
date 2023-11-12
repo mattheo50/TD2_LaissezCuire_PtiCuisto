@@ -60,7 +60,7 @@
             <div class="formRecette">
                 <label>Saisissez un lien d'image: </label>
                 <input name="image" type="text" placeholder="Lien" <?php if(isset($recette)){echo "value='".$recette['IMAGE']."'";}?>></input><br>
-                <input type="submit" value="Send Request"/>
+                <input type="submit" value="Envoyer"/>
             </div>
         </form>
     </div>

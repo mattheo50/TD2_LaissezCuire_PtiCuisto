@@ -2,7 +2,7 @@
     <section class="selectionRecherche" id="selectionTitre">
         <form action='index.php?action=filtresTitre&offset=0' method='post'>
             <label for='fieldTitre'>Titre : </label>
-            <input class='selectionInput' type='text' id='fieldTitre' name='recherche'>
+            <input class='selectionInput' type='text' value="<?php echo $rechercheSelectionnee; ?>" id='fieldTitre' name='recherche'>
 
             <button class='selectionButton' type='submit'>Rechercher</button>
         </form>
